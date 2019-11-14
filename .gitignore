@@ -1,0 +1,7 @@
+# Project exclude paths
+/xiaoxinshop-dao/target/
+/xiaoxinshop-manager-web/target/
+/xiaoxinshop-pojo/target/
+/xiaoxinshop-sellergoods-interface/target/
+/xiaoxinshop-sellergoods-service/target/
+/xiaoxinshop-shop-web/target/
