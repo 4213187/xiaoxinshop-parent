@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiaoxinshop.mapper.SpecificationMapper" >
+
+  <resultMap id="BaseResultMap" type="com.xiaoxinshop.entity.Specification" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="spec_name" property="specName" jdbcType="VARCHAR" />
+  </resultMap>
+<!--collection ofType  association javaType-->
+  <resultMap id="GBaseResultMap" type="GSpecification" >
+     <association property="specification" javaType="Specification">
+      <id column="sid" property="id"  />
+      <result column="specname" property="specName"  />
+     </association>
+    <collection property="specificationOptionList" ofType="SpecificationOption">
+      <result column="oid" property="id"  />
+      <result column="optionname" property="optionName"  />
+      <result column="specid" property="specId"  />
+      <result column="orders" property="orders"  />
+    </collection>
+
+  </resultMap>
+
+
+  <sql id="Base_Column_List" >
+    id, spec_name
+  </sql>
+
+  <sql id="GBase_Column_List" >
+    s.id sid, s.spec_name specname, o.id oid, o.option_name  optionname, o.spec_id  specid, o.orders orders
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="GBaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="GBase_Column_List" />
+    from tb_specification s join tb_specification_option o on s.id =o.spec_id
+    where s.id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="findByName" resultMap="BaseResultMap" parameterType="string" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_specification
+    where spec_name = #{specName}
+  </select>
+
+  <select id="find" resultMap="BaseResultMap" parameterType="Specification" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_specification
+    where 1=1
+    <if test="specName != null and specName!=''" >
+      and spec_name like '%${specName}%'
+    </if>
+
+  </select>
+
+
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tb_specification
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xiaoxinshop.entity.Specification" >
+    insert into tb_specification (id, spec_name)
+    values (#{id,jdbcType=BIGINT}, #{specName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiaoxinshop.entity.Specification" >
+    insert into tb_specification
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="specName != null" >
+        spec_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="specName != null" >
+        #{specName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiaoxinshop.entity.Specification" >
+    update tb_specification
+    <set >
+      <if test="specName != null" >
+        spec_name = #{specName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiaoxinshop.entity.Specification" >
+    update tb_specification
+    set spec_name = #{specName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
