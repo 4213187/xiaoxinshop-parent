@@ -20,6 +20,13 @@
     <include refid="Base_Column_List" />
     from tb_brand
   </select>
+
+  <select id="findBrands" resultType="java.util.Map">
+    select
+    id, name as text
+    from tb_brand
+  </select>
+
   <select id="find" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

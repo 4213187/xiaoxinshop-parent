@@ -5,6 +5,7 @@ import com.xiaoxinshop.entity.PageResult;
 
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author 小浩
@@ -56,6 +57,12 @@ public interface BrandService {
      * @param ids  id集合
      */
     public void  delete(int[] ids);
+
+    /**
+     * 查询所有品牌 返回map
+     * @return
+     */
+    List<Map>  findBrands();
 
 
 

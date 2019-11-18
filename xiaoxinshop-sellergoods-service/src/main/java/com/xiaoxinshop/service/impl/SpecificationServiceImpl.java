@@ -1,6 +1,7 @@
 package com.xiaoxinshop.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import com.xiaoxinshop.entity.GSpecification;
 import com.xiaoxinshop.entity.PageResult;
@@ -108,6 +109,11 @@ public class SpecificationServiceImpl implements SpecificationService {
         Page<Specification> page = (Page<Specification>) specificationMapper.find(specification);
         return new PageResult(page.getTotal(), page.getResult());
 
+    }
+
+    @Override
+    public List<Map> findSpecifications() {
+        return specificationMapper.findSpecifications();
     }
 
 }

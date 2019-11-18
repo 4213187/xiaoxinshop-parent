@@ -1,11 +1,8 @@
 package com.xiaoxinshop.service;
 import java.util.List;
-import java.util.Map;
 
-import com.xiaoxinshop.entity.GSpecification;
 import com.xiaoxinshop.entity.PageResult;
-import com.xiaoxinshop.entity.Specification;
-
+import com.xiaoxinshop.entity.TypeTemplate;
 
 
 /**
@@ -13,13 +10,13 @@ import com.xiaoxinshop.entity.Specification;
  * @author Administrator
  *
  */
-public interface SpecificationService {
+public interface TypeTemplateService {
 
 	/**
 	 * 返回全部列表
 	 * @return
 	 */
-	public List<Specification> findAll();
+	public List<TypeTemplate> findAll();
 	
 	
 	/**
@@ -32,13 +29,13 @@ public interface SpecificationService {
 	/**
 	 * 增加
 	*/
-	public void add(GSpecification specification);
+	public void add(TypeTemplate typeTemplate);
 	
 	
 	/**
 	 * 修改
 	 */
-	public void update(GSpecification specification);
+	public void update(TypeTemplate typeTemplate);
 	
 
 	/**
@@ -46,7 +43,7 @@ public interface SpecificationService {
 	 * @param id
 	 * @return
 	 */
-	public GSpecification findById(Long id);
+	public TypeTemplate findById(Long id);
 	
 	
 	/**
@@ -61,13 +58,6 @@ public interface SpecificationService {
 	 * @param pageSize 每页记录数
 	 * @return
 	 */
-	public PageResult findPage(Specification specification, int pageNum, int pageSize);
-
-	/**
-	 * 查询所有返回map
-	 * @return
-	 */
-
-	List<Map> findSpecifications();
+	public PageResult findPage(TypeTemplate typeTemplate, int pageNum, int pageSize);
 	
 }

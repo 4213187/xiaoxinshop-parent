@@ -10,6 +10,7 @@ import com.xiaoxinshop.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author 小浩
@@ -71,5 +72,10 @@ public class BrandServiceImpl implements BrandService {
         for (int id:ids) {
            brandMapper.deleteByPrimaryKey((long) id);
         }
+    }
+
+    @Override
+    public List<Map> findBrands() {
+        return brandMapper.findBrands();
     }
 }

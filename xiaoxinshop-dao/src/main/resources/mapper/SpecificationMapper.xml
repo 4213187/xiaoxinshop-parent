@@ -37,6 +37,14 @@
     where s.id = #{id,jdbcType=BIGINT}
   </select>
 
+
+  <select id="findSpecifications" resultType="java.util.Map"  >
+    select
+   id, spec_name as text
+    from tb_specification
+
+  </select>
+
   <select id="findByName" resultMap="BaseResultMap" parameterType="string" >
     select
     <include refid="Base_Column_List" />

@@ -1,5 +1,6 @@
 package com.xiaoxinshop.controller;
 import java.util.List;
+import java.util.Map;
 
 import com.xiaoxinshop.entity.GSpecification;
 import com.xiaoxinshop.entity.PageResult;
@@ -105,5 +106,12 @@ public class SpecificationController {
 	public PageResult find(@RequestBody Specification specification, int pageNum, int pageSize  ){
 		return specificationService.findPage(specification, pageNum, pageSize);
 	}
-	
+
+
+	@RequestMapping("/findSpecifications")
+	public List<Map> findSpecifications(Long id){
+		return specificationService.findSpecifications();
+	}
+
+
 }

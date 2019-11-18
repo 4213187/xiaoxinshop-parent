@@ -8,6 +8,7 @@ import com.xiaoxinshop.service.BrandService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author 小浩
@@ -70,6 +71,13 @@ public class BrandController {
     public Brand findById(int id){
          return  brandService.findById(id);
     }
+
+
+    @RequestMapping(value = "/findBrands")
+    public List<Map> findBrands(){
+        return  brandService.findBrands();
+    }
+
 
     @RequestMapping(value = "/delete",method= RequestMethod.POST)
     public ResultVo delete(@RequestBody int[] ids){

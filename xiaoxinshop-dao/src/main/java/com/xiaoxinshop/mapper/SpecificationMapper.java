@@ -4,6 +4,7 @@ import com.xiaoxinshop.entity.GSpecification;
 import com.xiaoxinshop.entity.Specification;
 
 import java.util.List;
+import java.util.Map;
 
 public interface SpecificationMapper {
     int deleteByPrimaryKey(Long id);
@@ -11,6 +12,7 @@ public interface SpecificationMapper {
     int insert(Specification record);
 
     int insertSelective(Specification record);
+
 
     GSpecification selectByPrimaryKey(Long id);
 
@@ -20,7 +22,7 @@ public interface SpecificationMapper {
 
     int updateByPrimaryKey(Specification record);
 
-
+    List<Map> findSpecifications();
 
     List<Specification> find(Specification specification);
 }
