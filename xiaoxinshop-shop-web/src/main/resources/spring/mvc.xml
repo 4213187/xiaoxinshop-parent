@@ -24,8 +24,8 @@
 	</mvc:annotation-driven>
 
 	<!-- 引用dubbo 服务 -->
-	<dubbo:protocol name="dubbo" port="20882"></dubbo:protocol>
-	<dubbo:application name="xiaoxinshop-manager-web" />
+	<dubbo:protocol name="dubbo" port="20883"></dubbo:protocol>
+	<dubbo:application name="xiaoxinshop-shop-web" />
 	<dubbo:registry address="zookeeper://47.97.195.131:2181"/>
 	<dubbo:annotation package="com.xiaoxinshop.controller" />
 

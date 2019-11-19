@@ -14,8 +14,7 @@
     <dubbo:registry address="zookeeper://47.97.195.131:2181"/>
     <dubbo:annotation package="com.xiaoxinshop.service.impl" />
 
-	<!-- 使用aop中的动态代理 -->
-	<aop:aspectj-autoproxy/>
+
 
    
 </beans>
