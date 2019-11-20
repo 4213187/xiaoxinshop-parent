@@ -1,6 +1,7 @@
 package com.xiaoxinshop.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -85,6 +86,11 @@ public class TypeTemplateServiceImpl implements TypeTemplateService {
 
         return new PageResult(page.getTotal(),page.getResult());
 
+    }
+
+    @Override
+    public List<Map> findTypeTemplates() {
+        return typeTemplateMapper.findTypeTemplates();
     }
 
 }

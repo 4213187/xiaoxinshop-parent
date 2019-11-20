@@ -30,6 +30,15 @@
   </select>
 
 
+  <select id="findTypeTemplates" resultType="java.util.Map"  >
+    select
+    id, name as text
+    from tb_type_template
+
+  </select>
+
+
+
 
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >

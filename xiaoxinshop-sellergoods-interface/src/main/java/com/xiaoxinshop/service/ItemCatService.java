@@ -1,9 +1,8 @@
 package com.xiaoxinshop.service;
 import java.util.List;
-import java.util.Map;
 
+import com.xiaoxinshop.entity.ItemCat;
 import com.xiaoxinshop.entity.PageResult;
-import com.xiaoxinshop.entity.TypeTemplate;
 
 
 /**
@@ -11,13 +10,13 @@ import com.xiaoxinshop.entity.TypeTemplate;
  * @author Administrator
  *
  */
-public interface TypeTemplateService {
+public interface ItemCatService {
 
 	/**
 	 * 返回全部列表
 	 * @return
 	 */
-	public List<TypeTemplate> findAll();
+	public List<ItemCat> findAll();
 	
 	
 	/**
@@ -30,13 +29,13 @@ public interface TypeTemplateService {
 	/**
 	 * 增加
 	*/
-	public void add(TypeTemplate typeTemplate);
+	public void add(ItemCat itemCat);
 	
 	
 	/**
 	 * 修改
 	 */
-	public void update(TypeTemplate typeTemplate);
+	public void update(ItemCat itemCat);
 	
 
 	/**
@@ -44,7 +43,7 @@ public interface TypeTemplateService {
 	 * @param id
 	 * @return
 	 */
-	public TypeTemplate findById(Long id);
+	public ItemCat findById(Long id);
 	
 	
 	/**
@@ -59,12 +58,13 @@ public interface TypeTemplateService {
 	 * @param pageSize 每页记录数
 	 * @return
 	 */
-	public PageResult findPage(TypeTemplate typeTemplate, int pageNum, int pageSize);
+	public PageResult findPage(ItemCat itemCat, int pageNum, int pageSize);
 
 	/**
-	 * 返回所有模板 map
+	 * 查询子类别
+	 * @param parentId
 	 * @return
 	 */
-	List<Map> findTypeTemplates();
+	List<ItemCat> findByParentId(Long parentId);
 	
 }
