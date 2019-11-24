@@ -6,6 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="xiaoxinshop-common" />
         <module name="xiaoxinshop-manager-web" />
         <module name="xiaoxinshop-shop-web" />
         <module name="xiaoxinshop-sellergoods-service" />
@@ -15,7 +16,6 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="xiaoxinshop-common" target="1.8" />
       <module name="xiaoxinshop-log" target="1.8" />
     </bytecodeTargetLevel>
   </component>

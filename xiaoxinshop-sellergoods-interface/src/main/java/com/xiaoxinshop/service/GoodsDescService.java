@@ -1,21 +1,21 @@
 package com.xiaoxinshop.service;
-import java.util.List;
-
+import com.xiaoxinshop.entity.GoodsDesc;
 import com.xiaoxinshop.entity.PageResult;
-import com.xiaoxinshop.entity.Seller;
+
+import java.util.List;
 
 /**
  * 服务层接口
  * @author Administrator
  *
  */
-public interface SellerService {
+public interface GoodsDescService {
 
 	/**
 	 * 返回全部列表
 	 * @return
 	 */
-	public List<Seller> findAll();
+	public List<GoodsDesc> findAll();
 	
 	
 	/**
@@ -28,13 +28,13 @@ public interface SellerService {
 	/**
 	 * 增加
 	*/
-	public void add(Seller seller);
+	public void add(GoodsDesc goodsDesc);
 	
 	
 	/**
 	 * 修改
 	 */
-	public void update(Seller seller);
+	public void update(GoodsDesc goodsDesc);
 	
 
 	/**
@@ -42,14 +42,14 @@ public interface SellerService {
 	 * @param id
 	 * @return
 	 */
-	public Seller findById(String id);
+	public GoodsDesc findById(Long id);
 	
 	
 	/**
 	 * 批量删除
 	 * @param ids
 	 */
-	public void delete(String[] ids);
+	public void delete(Long[] ids);
 
 	/**
 	 * 分页
@@ -57,20 +57,6 @@ public interface SellerService {
 	 * @param pageSize 每页记录数
 	 * @return
 	 */
-	public PageResult findPage(Seller seller, int pageNum, int pageSize);
-
-	/**
-	 * 更新状态
-	 * @param seller
-	 * @return
-	 */
-	int updateStatus(Seller seller);
-
-	/**
-	 * 登陆查询校验
-	 * @param seller
-	 * @return
-	 */
-	Seller findLogin(Seller seller);
+	public PageResult findPage(GoodsDesc goodsDesc, int pageNum, int pageSize);
 	
 }

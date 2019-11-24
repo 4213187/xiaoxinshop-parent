@@ -34,8 +34,6 @@ public class ManagerController {
         try {
             Manager manager1 = managerService.find(manager);
             if (manager1 != null) {
-                HttpSession session = request.getSession();
-                session.setAttribute("manager",manager);
 
                 return new ResultVo(true, manager.getName());
             }else {

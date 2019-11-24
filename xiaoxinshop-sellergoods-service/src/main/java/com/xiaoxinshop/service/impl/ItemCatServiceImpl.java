@@ -27,7 +27,7 @@ public class ItemCatServiceImpl implements ItemCatService {
      */
     @Override
     public List<ItemCat> findAll() {
-        return null;
+        return itemCatMapper.findAll();
     }
 
     /**

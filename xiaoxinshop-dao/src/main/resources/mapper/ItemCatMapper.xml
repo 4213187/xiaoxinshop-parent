@@ -10,11 +10,20 @@
   <sql id="Base_Column_List" >
     id, parent_id, name, type_id
   </sql>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
     from tb_item_cat
     where id = #{id,jdbcType=BIGINT}
+  </select>
+
+
+  <select id="findAll" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from tb_item_cat
+
   </select>
 
   <select id="findByParentId" resultMap="BaseResultMap" parameterType="java.lang.Long" >

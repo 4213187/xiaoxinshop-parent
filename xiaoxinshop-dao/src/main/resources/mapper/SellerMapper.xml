@@ -60,6 +60,15 @@
   </select>
 
 
+  <select id="findLogin" resultMap="BaseResultMap" parameterType="Seller" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_seller
+    where
+    seller_id = #{sellerId,jdbcType=VARCHAR}  and  password =#{password} and status = '1'
+  </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from tb_seller
     where seller_id = #{sellerId,jdbcType=VARCHAR}

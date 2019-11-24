@@ -17,6 +17,8 @@ public interface SellerMapper {
 
     int updateStatus(Seller seller);
 
+    Seller findLogin(Seller seller);
+
     int updateByPrimaryKeySelective(Seller record);
 
     int updateByPrimaryKey(Seller record);

@@ -15,6 +15,7 @@
         <module>xiaoxinshop-sellergoods-service</module>
         <module>xiaoxinshop-manager-web</module>
         <module>xiaoxinshop-shop-web</module>
+        <module>xiaoxinshop-common</module>
 
 
     </modules>

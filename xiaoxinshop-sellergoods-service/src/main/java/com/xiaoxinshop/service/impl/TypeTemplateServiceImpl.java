@@ -3,10 +3,13 @@ package com.xiaoxinshop.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.xiaoxinshop.entity.PageResult;
+import com.xiaoxinshop.entity.SpecificationOption;
 import com.xiaoxinshop.entity.TypeTemplate;
+import com.xiaoxinshop.mapper.SpecificationOptionMapper;
 import com.xiaoxinshop.mapper.TypeTemplateMapper;
 import com.xiaoxinshop.service.TypeTemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,9 @@ public class TypeTemplateServiceImpl implements TypeTemplateService {
 
     @Autowired
     private TypeTemplateMapper typeTemplateMapper;
+
+    @Autowired
+    private SpecificationOptionMapper specificationOptionMapper;
 
     /**
      * 查询全部
@@ -91,6 +97,20 @@ public class TypeTemplateServiceImpl implements TypeTemplateService {
     @Override
     public List<Map> findTypeTemplates() {
         return typeTemplateMapper.findTypeTemplates();
+    }
+
+    @Override
+    public List<Map> findSpecList(Long id) {
+        TypeTemplate typeTemplate = typeTemplateMapper.selectByPrimaryKey(id);
+
+        List<Map> maps = JSON.parseArray(typeTemplate.getSpecIds(), Map.class);
+        for (Map map: maps  ) {
+
+            List<SpecificationOption> options = specificationOptionMapper.findBySpecId(new Long ((Integer) map.get("id")));
+            System.out.println(options);
+            map.put("options",options);
+        }
+        return maps;
     }
 
 }

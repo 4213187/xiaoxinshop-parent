@@ -15,6 +15,8 @@ public interface ItemCatMapper {
 
     List<ItemCat> findByParentId(Long parentId);
 
+    List<ItemCat> findAll();
+
     int updateByPrimaryKeySelective(ItemCat record);
 
     int updateByPrimaryKey(ItemCat record);

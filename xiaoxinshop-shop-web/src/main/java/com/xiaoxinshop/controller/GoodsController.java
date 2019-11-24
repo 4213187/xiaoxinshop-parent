@@ -1,49 +1,51 @@
 package com.xiaoxinshop.controller;
 import java.util.List;
-import java.util.Map;
 
+import com.xiaoxinshop.entity.GGoods;
+import com.xiaoxinshop.entity.Goods;
 import com.xiaoxinshop.entity.PageResult;
 import com.xiaoxinshop.entity.ResultVo;
-import com.xiaoxinshop.entity.TypeTemplate;
-import com.xiaoxinshop.service.TypeTemplateService;
+import com.xiaoxinshop.service.GoodsService;
 import org.springframework.web.bind.annotation.*;
 import com.alibaba.dubbo.config.annotation.Reference;
-
 
 /**
  * controller
  * @author Administrator
  *
  */
+@CrossOrigin(origins = "*",maxAge = 3600)
 @RestController
-@RequestMapping("/typeTemplate")
-@CrossOrigin(origins = "*", maxAge=3600)
-public class TypeTemplateController {
+@RequestMapping("/goods")
+public class GoodsController {
 
 	@Reference
-	private TypeTemplateService typeTemplateService;
+	private GoodsService goodsService;
+	
+
+	
 	
 	/**
 	 * 返回全部列表
 	 * @return
 	 */
-	@RequestMapping("/findAll")
-	public List<TypeTemplate> findAll(){
-		return typeTemplateService.findAll();
+	@RequestMapping("/findPage")
+	public PageResult findPage(int page, int rows){
+		return goodsService.findPage(page, rows);
 	}
 	
-	
-
 	/**
 	 * 增加
-	 * @param typeTemplate
+	 * @param gGoods
 	 * @return
 	 */
 	@RequestMapping(value = "/add",method = RequestMethod.POST)
-	public ResultVo add(@RequestBody TypeTemplate typeTemplate){
+	public ResultVo add(@RequestBody GGoods gGoods){
 		try {
-			System.out.println("add");
-			typeTemplateService.add(typeTemplate);
+			System.out.println(gGoods.getGoods());
+			System.out.println(gGoods.getGoodsDesc());
+			System.out.println(gGoods.getItemList());
+			goodsService.add(gGoods);
 			return new ResultVo(true, "增加成功");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -53,13 +55,14 @@ public class TypeTemplateController {
 	
 	/**
 	 * 修改
-	 * @param typeTemplate
+	 * @param goods
 	 * @return
 	 */
 	@RequestMapping(value = "/update",method = RequestMethod.POST)
-	public ResultVo update(@RequestBody TypeTemplate typeTemplate){
+	public ResultVo update(@RequestBody GGoods goods){
 		try {
-			typeTemplateService.update(typeTemplate);
+			System.out.println(goods.getGoods().getIsEnableSpec());
+			goodsService.update(goods);
 			return new ResultVo(true, "修改成功");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -73,8 +76,8 @@ public class TypeTemplateController {
 	 * @return
 	 */
 	@RequestMapping("/findById")
-	public TypeTemplate findOne(Long id){
-		return typeTemplateService.findById(id);
+	public GGoods findById(Long id){
+		return goodsService.findById(id);
 	}
 	
 	/**
@@ -85,7 +88,7 @@ public class TypeTemplateController {
 	@RequestMapping(value = "/delete",method = RequestMethod.POST)
 	public ResultVo delete(@RequestBody Long [] ids){
 		try {
-			typeTemplateService.delete(ids);
+			goodsService.delete(ids);
 			return new ResultVo(true, "删除成功");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -94,20 +97,10 @@ public class TypeTemplateController {
 	}
 	
 
-	@RequestMapping(value = "/find",method = RequestMethod.POST)
-	public PageResult search(@RequestBody TypeTemplate typeTemplate, int pageNum, int pageSize  ){
-		return typeTemplateService.findPage(typeTemplate, pageNum, pageSize);
-	}
+	@RequestMapping(value = "/sellerFind",method = RequestMethod.POST)
+	public PageResult sellerFind(@RequestBody Goods goods, int pageNum, int pageSize  ){
 
-	@RequestMapping(value = "/findTypeTemplates")
-	public List<Map> findTypeTemplates(){
-		return  typeTemplateService.findTypeTemplates();
+		return goodsService.findPage(goods, pageNum, pageSize);
 	}
-
-	@RequestMapping(value = "/findSpecList")
-	public List<Map> findSpecList(Long id){
-		return  typeTemplateService.findSpecList(id);
-	}
-
 	
 }

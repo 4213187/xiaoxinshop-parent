@@ -92,4 +92,9 @@ public class SellerServiceImpl implements SellerService {
         return sellerMapper.updateStatus(seller);
     }
 
+    @Override
+    public Seller findLogin(Seller seller) {
+        return sellerMapper.findLogin(seller);
+    }
+
 }

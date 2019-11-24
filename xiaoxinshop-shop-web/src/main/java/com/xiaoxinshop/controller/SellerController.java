@@ -2,12 +2,14 @@ package com.xiaoxinshop.controller;
 import java.util.Date;
 import java.util.List;
 
+import com.xiaoxinshop.entity.Manager;
 import com.xiaoxinshop.entity.PageResult;
 import com.xiaoxinshop.entity.ResultVo;
 import com.xiaoxinshop.entity.Seller;
 import com.xiaoxinshop.service.SellerService;
 import org.springframework.web.bind.annotation.*;
 import com.alibaba.dubbo.config.annotation.Reference;
+
 
 
 /**
@@ -170,6 +172,26 @@ public class SellerController {
 	public PageResult find(@RequestBody Seller seller, int pageNum, int pageSize  ){
 
 		return sellerService.findPage(seller, pageNum, pageSize);
+	}
+
+
+	@RequestMapping(value = "/login",method = RequestMethod.POST)
+	public ResultVo login(@RequestBody Seller seller) {
+		System.out.println("sellerlogin");
+		try {
+			Seller login = sellerService.findLogin(seller);
+			if (login != null){
+				return  new ResultVo(true,"登陆成功");
+			}else {
+				return  new ResultVo(false,"登陆失败");
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+			return  new ResultVo(false,"登陆失败");
+		}
+
+
+
 	}
 
 }

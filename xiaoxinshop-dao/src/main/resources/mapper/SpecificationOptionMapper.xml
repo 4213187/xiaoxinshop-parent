@@ -16,6 +16,14 @@
         from tb_specification_option
         where id = #{id,jdbcType=BIGINT}
     </select>
+
+    <select id="findBySpecId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_specification_option
+        where spec_id = #{specId,jdbcType=BIGINT}
+    </select>
+
     <delete id="deleteBySpecId"  parameterType="java.lang.Long">
        delete from tb_specification_option
       where spec_id = #{specId,jdbcType=BIGINT}
