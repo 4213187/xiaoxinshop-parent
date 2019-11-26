@@ -1,4 +1,4 @@
-package com.xiaoxinshop.controller;
+package com.xiaoxinshop.manager.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.xiaoxinshop.entity.Brand;

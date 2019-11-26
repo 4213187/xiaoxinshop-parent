@@ -1,15 +1,15 @@
-package com.xiaoxinshop.controller;
-import java.util.List;
-import java.util.Map;
+package com.xiaoxinshop.manager.controller;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.xiaoxinshop.entity.GSpecification;
 import com.xiaoxinshop.entity.PageResult;
 import com.xiaoxinshop.entity.ResultVo;
 import com.xiaoxinshop.entity.Specification;
 import com.xiaoxinshop.service.SpecificationService;
 import org.springframework.web.bind.annotation.*;
-import com.alibaba.dubbo.config.annotation.Reference;
 
+import java.util.List;
+import java.util.Map;
 
 
 /**

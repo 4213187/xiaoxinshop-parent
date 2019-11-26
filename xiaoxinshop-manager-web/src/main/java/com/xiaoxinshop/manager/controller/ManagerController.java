@@ -1,17 +1,12 @@
-package com.xiaoxinshop.controller;
+package com.xiaoxinshop.manager.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.xiaoxinshop.entity.Brand;
 import com.xiaoxinshop.entity.Manager;
-import com.xiaoxinshop.entity.PageResult;
 import com.xiaoxinshop.entity.ResultVo;
 import com.xiaoxinshop.service.ManagerService;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * @Author 小浩

@@ -1,4 +1,4 @@
-package com.xiaoxinshop.controller;
+package com.xiaoxinshop.shop.controller;
 
 import com.xiaoxinshop.entity.ResultVo;
 import com.xiaoxinshop.util.FastDFSClient;
