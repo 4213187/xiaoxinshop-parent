@@ -32,7 +32,10 @@ public interface GoodsService {
 	 * 修改
 	 */
 	public void update(GGoods goods);
-	
+
+	public void updateStatus(Long[] ids,String status);
+
+	public  void updateMarketableStatus(Long[] ids,String status);
 
 	/**
 	 * 根据ID获取实体

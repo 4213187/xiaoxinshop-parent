@@ -48,6 +48,11 @@
     <if test="goodsName !=null and goodsName !=''">
       and goods_name like '%${goodsName}%'
     </if>
+
+    <if test="isMarketable !=null and isMarketable !=''">
+      and  is_marketable  = #{isMarketable}
+    </if>
+    and  is_delete is null
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
@@ -225,6 +230,8 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+
   <update id="updateByPrimaryKey" parameterType="com.xiaoxinshop.entity.Goods" >
     update tb_goods
     set seller_id = #{sellerId,jdbcType=VARCHAR},
@@ -244,4 +251,7 @@
       is_delete = #{isDelete,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+
+
 </mapper>

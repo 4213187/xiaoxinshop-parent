@@ -68,8 +68,38 @@ public class GoodsController {
 			e.printStackTrace();
 			return new ResultVo(false, "修改失败");
 		}
-	}	
-	
+	}
+
+
+	@RequestMapping(value = "/updateStatus",method = RequestMethod.POST)
+	public ResultVo updateStatus(@RequestBody Long[] ids ,String status){
+		try {
+			System.out.println("updateStatus");
+			goodsService.updateStatus(ids,status);
+			return new ResultVo(true, "修改成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResultVo(false, "修改失败");
+		}
+	}
+
+
+	@RequestMapping(value = "/updateMarketableStatus",method = RequestMethod.POST)
+	public ResultVo updateMarketableStatus(@RequestBody Long[] ids ,String status){
+		try {
+			System.out.println("updateMarketableStatus");
+			goodsService.updateMarketableStatus(ids,status);
+			return new ResultVo(true, "修改成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResultVo(false, "修改失败");
+		}
+	}
+
+
+
+
+
 	/**
 	 * 获取实体
 	 * @param id
@@ -88,6 +118,7 @@ public class GoodsController {
 	@RequestMapping(value = "/delete",method = RequestMethod.POST)
 	public ResultVo delete(@RequestBody Long [] ids){
 		try {
+			System.out.println("delete");
 			goodsService.delete(ids);
 			return new ResultVo(true, "删除成功");
 		} catch (Exception e) {

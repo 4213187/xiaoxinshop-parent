@@ -55,6 +55,6 @@
 <!--	<tx:annotation-driven/>-->
 
 	<!-- 使用aop中的动态代理 -->
-	<aop:aspectj-autoproxy/>
+<!--	<aop:aspectj-autoproxy/>-->
 
 </beans>

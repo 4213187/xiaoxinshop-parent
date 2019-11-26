@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import org.springframework.transaction.annotation.Transactional;
 
 
 /**
@@ -20,6 +21,7 @@ import com.github.pagehelper.PageHelper;
  * @author Administrator
  */
 @Service
+@Transactional(rollbackFor = RuntimeException.class)
 public class GoodsServiceImpl implements GoodsService {
 
     @Autowired
@@ -157,6 +159,25 @@ public class GoodsServiceImpl implements GoodsService {
 
     }
 
+    @Override
+    public void updateStatus(Long[] ids,String status) {
+        for (Long id:ids) {
+            Goods goods = goodsMapper.selectByPrimaryKey(id);
+            goods.setAuditStatus(status);
+            goodsMapper.updateByPrimaryKeySelective(goods);
+        }
+    }
+
+    @Override
+    public void updateMarketableStatus(Long[] ids, String status) {
+        for (Long id:ids) {
+            Goods goods = goodsMapper.selectByPrimaryKey(id);
+            goods.setIsMarketable(status);
+            goodsMapper.updateByPrimaryKeySelective(goods);
+        }
+
+    }
+
     /**
      * 根据ID获取实体
      *
@@ -183,7 +204,10 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public void delete(Long[] ids) {
         for (Long id : ids) {
-            goodsMapper.deleteByPrimaryKey(id);
+
+            Goods goods = goodsMapper.selectByPrimaryKey(id);
+            goods.setIsDelete("1");
+            goodsMapper.updateByPrimaryKeySelective(goods);
         }
     }
 
