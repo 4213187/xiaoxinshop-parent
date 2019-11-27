@@ -16,6 +16,9 @@
         <module>xiaoxinshop-manager-web</module>
         <module>xiaoxinshop-shop-web</module>
         <module>xiaoxinshop-common</module>
+        <module>xiaoxinshop-content-interface</module>
+        <module>xiaoxinshop-content-service</module>
+        <module>xiaoxinshop-portal-web</module>
 
 
     </modules>

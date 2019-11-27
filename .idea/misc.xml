@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/xiaoxinshop-content-service" />
     <file type="web" url="file://$PROJECT_DIR$/xiaoxinshop-log" />
     <file type="web" url="file://$PROJECT_DIR$/xiaoxinshop-manager-web" />
+    <file type="web" url="file://$PROJECT_DIR$/xiaoxinshop-portal-web" />
     <file type="web" url="file://$PROJECT_DIR$/xiaoxinshop-sellergoods-service" />
     <file type="web" url="file://$PROJECT_DIR$/xiaoxinshop-shop-web" />
   </component>
