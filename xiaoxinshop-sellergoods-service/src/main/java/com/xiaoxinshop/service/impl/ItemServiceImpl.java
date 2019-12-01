@@ -1,4 +1,5 @@
 package com.xiaoxinshop.service.impl;
+import java.util.Arrays;
 import java.util.List;
 
 import com.xiaoxinshop.entity.Item;
@@ -83,5 +84,18 @@ public class ItemServiceImpl implements ItemService {
 
 		return null;
 	}
-	
+
+	/**
+	 * 根据商品id 查询所有的sku
+	 * @param goodsIds
+	 * @param status
+	 * @return
+	 */
+	@Override
+	public List<Item> findItemListByGoodsIdandStatus(Long[] goodsIds, String status) {
+
+		System.out.println("findItemListByGoodsIdandStatus");
+		return itemMapper.findItemListByGoodsIdandStatus(Arrays.asList(goodsIds),status);
+	}
+
 }

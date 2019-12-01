@@ -58,5 +58,8 @@ public interface ItemService {
 	 * @return
 	 */
 	public PageResult findPage(Item item, int pageNum, int pageSize);
+
+
+	public List<Item> findItemListByGoodsIdandStatus(Long[] goodsIds, String status );
 	
 }

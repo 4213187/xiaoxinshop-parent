@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import org.springframework.data.redis.core.RedisTemplate;
 
 /**
  * 服务实现层
@@ -85,8 +86,19 @@ public class ItemCatServiceImpl implements ItemCatService {
         return null;
     }
 
+    @Autowired
+    private RedisTemplate redisTemplate;
     @Override
     public List<ItemCat> findByParentId(Long parentId) {
+
+        List<ItemCat> itemCats = itemCatMapper.findAll();
+
+        for (ItemCat itemCat: itemCats ) {
+            redisTemplate.boundHashOps("itemCat").put(itemCat.getName(),itemCat.getTypeId());
+
+        }
+        System.out.println("模板放入缓存");
+
         return itemCatMapper.findByParentId(parentId);
     }
 

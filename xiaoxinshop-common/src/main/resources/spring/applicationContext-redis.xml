@@ -21,7 +21,8 @@
      <property name="maxWaitMillis" value="${redis.maxWait}" />  
      <property name="testOnBorrow" value="${redis.testOnBorrow}" />  
    </bean>  
-  
+
+
    <bean id="JedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" 
        p:host-name="${redis.host}" p:port="${redis.port}" p:password="${redis.pass}" p:pool-config-ref="poolConfig"/>  
    

@@ -19,6 +19,9 @@
         <module>xiaoxinshop-content-interface</module>
         <module>xiaoxinshop-content-service</module>
         <module>xiaoxinshop-portal-web</module>
+        <module>xiaoxinshop-search-interface</module>
+        <module>xiaoxinshop-search-service</module>
+        <module>xiaoxinshop-search-web</module>
 
 
     </modules>

@@ -8,13 +8,16 @@
         <outputRelativeToContentRoot value="true" />
         <module name="xiaoxinshop-content-interface" />
         <module name="xiaoxinshop-common" />
+        <module name="xiaoxinshop-search-service" />
         <module name="xiaoxinshop-manager-web" />
         <module name="xiaoxinshop-shop-web" />
         <module name="xiaoxinshop-sellergoods-service" />
         <module name="xiaoxinshop-pojo" />
-        <module name="xiaoxinshop-sellergoods-interface" />
+        <module name="xiaoxinshop-search-web" />
         <module name="xiaoxinshop-dao" />
         <module name="xiaoxinshop-portal-web" />
+        <module name="xiaoxinshop-search-interface" />
+        <module name="xiaoxinshop-sellergoods-interface" />
         <module name="xiaoxinshop-content-service" />
       </profile>
     </annotationProcessing>

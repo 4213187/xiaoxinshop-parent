@@ -4,6 +4,8 @@
     <file url="file://$PROJECT_DIR$/xiaoxinshop-content-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/xiaoxinshop-manager-web" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/xiaoxinshop-portal-web" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/xiaoxinshop-search-service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/xiaoxinshop-search-web" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/xiaoxinshop-sellergoods-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/xiaoxinshop-shop-web" charset="UTF-8" />
   </component>
