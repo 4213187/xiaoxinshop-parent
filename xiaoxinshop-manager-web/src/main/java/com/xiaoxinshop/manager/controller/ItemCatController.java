@@ -5,8 +5,10 @@ import com.xiaoxinshop.entity.ItemCat;
 import com.xiaoxinshop.entity.PageResult;
 import com.xiaoxinshop.entity.ResultVo;
 import com.xiaoxinshop.service.ItemCatService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.jms.Destination;
 import java.util.List;
 
 
@@ -20,7 +22,7 @@ import java.util.List;
 @RequestMapping("/itemCat")
 public class ItemCatController {
 
-	@Reference
+	@Reference(timeout = 100000)
 	private ItemCatService itemCatService;
 	
 	/**
@@ -94,7 +96,9 @@ public class ItemCatController {
 		return itemCatService.findByParentId(parentId);
 	}
 
-	
+
+
+
 	/**
 	 * 批量删除
 	 * @param ids

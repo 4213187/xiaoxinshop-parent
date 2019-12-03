@@ -1,13 +1,19 @@
 package com.xiaoxinshop.manager.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.alibaba.fastjson.JSON;
 import com.xiaoxinshop.entity.*;
-import com.xiaoxinshop.search.service.ItemSearchService;
 import com.xiaoxinshop.service.GoodsService;
 import com.xiaoxinshop.service.ItemService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
+import javax.jms.Destination;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.Session;
 import java.util.List;
 
 
@@ -25,8 +31,14 @@ public class GoodsController {
     @Reference
     private ItemService itemService;
 
-    @Reference
-    private ItemSearchService itemSearchService;
+    @Autowired
+    private JmsTemplate jmsTemplate;
+
+    @Autowired
+    private Destination queueSolrDestination;
+
+    @Autowired
+    private Destination topicPageDestination;
 
 
     /**
@@ -86,11 +98,34 @@ public class GoodsController {
 
 
             if ("1".equals(status)) {
-                List<Item> items = itemService.findItemListByGoodsIdandStatus(ids, "1");
-                if (items.size() > 0) {
-                    System.out.println(items+"1111");
-                    itemSearchService.importList(items);
+
+                List<Item> itemList = itemService.findItemListByGoodsIdandStatus(ids, "1");
+                if (itemList.size() > 0) {
+//                  solr
+                    final String jsonString = JSON.toJSONString(itemList);
+                    System.out.println(itemList);
+                    System.out.println("jmsTemplate");
+                    jmsTemplate.send(queueSolrDestination, new MessageCreator() {
+                        @Override
+                        public Message createMessage(Session session) throws JMSException {
+                            return session.createTextMessage(jsonString);
+                        }
+                    });
+
+//                  Freemarker
+                    for (Long id : ids) {
+
+                        jmsTemplate.send(topicPageDestination, new MessageCreator() {
+                            @Override
+                            public Message createMessage(Session session) throws JMSException {
+                                return session.createObjectMessage(id);
+                            }
+                        });
+                    }
+
                 }
+
+
             }
 
             return new ResultVo(true, "修改成功");
@@ -119,6 +154,12 @@ public class GoodsController {
         return goodsService.findById(id);
     }
 
+
+    @Autowired
+    private Destination queueSolrDeleteDestination;
+    @Autowired
+    private Destination topicPageDeleteDestination;
+
     /**
      * 批量删除
      *
@@ -131,7 +172,22 @@ public class GoodsController {
             System.out.println("delete");
             goodsService.delete(ids);
 
-            itemSearchService.deleteByGoodsIds(Arrays.asList(ids));
+            jmsTemplate.send(queueSolrDeleteDestination, new MessageCreator() {
+                @Override
+                public Message createMessage(Session session) throws JMSException {
+                    return session.createObjectMessage(ids);
+                }
+            });
+
+            //删除页面
+            jmsTemplate.send(topicPageDeleteDestination, new MessageCreator() {
+                @Override
+                public Message createMessage(Session session) throws JMSException {
+                    return session.createObjectMessage(ids);
+                }
+            });
+
+
             return new ResultVo(true, "删除成功");
         } catch (Exception e) {
             e.printStackTrace();
@@ -145,5 +201,11 @@ public class GoodsController {
 
         return goodsService.findPage(goods, pageNum, pageSize);
     }
+
+//    @RequestMapping("/genHtml")
+//    public void genHtml(Long goodsId) {
+//        itemPageService.genItemHtml(goodsId);
+//    }
+
 
 }

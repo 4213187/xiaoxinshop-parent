@@ -22,6 +22,9 @@
         <module>xiaoxinshop-search-interface</module>
         <module>xiaoxinshop-search-service</module>
         <module>xiaoxinshop-search-web</module>
+        <module>xiaoxinshop-page-interface</module>
+        <module>xiaoxinshop-page-service</module>
+        <module>xiaoxinshop-page-web</module>
 
 
     </modules>

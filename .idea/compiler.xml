@@ -6,23 +6,27 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="xiaoxinshop-content-interface" />
-        <module name="xiaoxinshop-common" />
-        <module name="xiaoxinshop-search-service" />
-        <module name="xiaoxinshop-manager-web" />
-        <module name="xiaoxinshop-shop-web" />
-        <module name="xiaoxinshop-sellergoods-service" />
         <module name="xiaoxinshop-pojo" />
         <module name="xiaoxinshop-search-web" />
-        <module name="xiaoxinshop-dao" />
-        <module name="xiaoxinshop-portal-web" />
         <module name="xiaoxinshop-search-interface" />
         <module name="xiaoxinshop-sellergoods-interface" />
+        <module name="xiaoxinshop-search-service" />
+        <module name="xiaoxinshop-content-interface" />
+        <module name="xiaoxinshop-shop-web" />
+        <module name="xiaoxinshop-portal-web" />
         <module name="xiaoxinshop-content-service" />
+        <module name="xiaoxinshop-dao" />
+        <module name="xiaoxinshop-sellergoods-service" />
+        <module name="xiaoxinshop-page-interface" />
+        <module name="xiaoxinshop-common" />
+        <module name="xiaoxinshop-page-service" />
+        <module name="xiaoxinshop-manager-web" />
+        <module name="xiaoxinshop-page-web" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="xiaoxinshop-log" target="1.8" />
+      <module name="xiaoxinshop-page-web" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

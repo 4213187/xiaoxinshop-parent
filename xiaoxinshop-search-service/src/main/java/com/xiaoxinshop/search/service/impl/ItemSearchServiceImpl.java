@@ -91,6 +91,7 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 
     @Override
     public void importList(List list) {
+
         solrTemplate.saveBeans(list);
         solrTemplate.commit();
 
