@@ -11,22 +11,26 @@
         <module name="xiaoxinshop-search-interface" />
         <module name="xiaoxinshop-sellergoods-interface" />
         <module name="xiaoxinshop-search-service" />
+        <module name="xiaoxinshop-message-interface" />
+        <module name="xiaoxinshop-user-service" />
+        <module name="xiaoxinshop-message-service" />
         <module name="xiaoxinshop-content-interface" />
         <module name="xiaoxinshop-shop-web" />
         <module name="xiaoxinshop-portal-web" />
         <module name="xiaoxinshop-content-service" />
         <module name="xiaoxinshop-dao" />
         <module name="xiaoxinshop-sellergoods-service" />
+        <module name="xiaoxinshop-user-web" />
         <module name="xiaoxinshop-page-interface" />
         <module name="xiaoxinshop-common" />
         <module name="xiaoxinshop-page-service" />
         <module name="xiaoxinshop-manager-web" />
         <module name="xiaoxinshop-page-web" />
+        <module name="xiaoxinshop-user-interface" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="xiaoxinshop-log" target="1.8" />
-      <module name="xiaoxinshop-page-web" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

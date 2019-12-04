@@ -25,6 +25,11 @@
         <module>xiaoxinshop-page-interface</module>
         <module>xiaoxinshop-page-service</module>
         <module>xiaoxinshop-page-web</module>
+        <module>xiaoxinshop-message-interface</module>
+        <module>xiaoxinshop-message-service</module>
+        <module>xiaoxinshop-user-interface</module>
+        <module>xiaoxinshop-user-service</module>
+        <module>xiaoxinshop-user-web</module>
 
 
     </modules>

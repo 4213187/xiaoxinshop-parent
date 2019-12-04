@@ -14,7 +14,9 @@ import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.Session;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -202,9 +204,21 @@ public class GoodsController {
         return goodsService.findPage(goods, pageNum, pageSize);
     }
 
+//    @Autowired
+//    Destination queueMessageDestination;
+//
 //    @RequestMapping("/genHtml")
-//    public void genHtml(Long goodsId) {
-//        itemPageService.genItemHtml(goodsId);
+//    public void genHtml() {
+//        Map<String,String> map = new HashMap();
+//        map.put("phone","17633331115");
+//        map.put("code","1111");
+//        String mapStr = JSON.toJSONString(map);
+//        jmsTemplate.send(queueMessageDestination, new MessageCreator() {
+//           @Override
+//           public Message createMessage(Session session) throws JMSException {
+//               return session.createTextMessage(mapStr);
+//           }
+//       });
 //    }
 
 

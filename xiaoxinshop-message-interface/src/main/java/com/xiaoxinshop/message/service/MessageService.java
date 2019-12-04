@@ -1,0 +1,17 @@
+package com.xiaoxinshop.message.service;
+
+/**
+ * @Author 小浩
+ * @Date 2019/12/4 17:13
+ * @Version 1.0
+ **/
+public interface MessageService {
+
+    /**
+     * 发送验证码
+     * @param phone
+     * @param code
+     * @return
+     */
+  boolean  sendSms(String phone,String code);
+}
