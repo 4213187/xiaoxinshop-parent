@@ -5,6 +5,7 @@ import com.xiaoxinshop.content.service.ContentService;
 import com.xiaoxinshop.entity.Content;
 import com.xiaoxinshop.entity.PageResult;
 import com.xiaoxinshop.entity.ResultVo;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -115,5 +116,18 @@ public class ContentController {
 	public PageResult search(@RequestBody Content content, int pageNum, int pageSize  ){
 		return contentService.findPage(content, pageNum, pageSize);
 	}
-	
+
+
+	@RequestMapping("/name")
+	public String showName() {
+
+		//得到登陆人账号
+		String name = SecurityContextHolder.getContext().getAuthentication().getName();
+
+		System.out.println(name);
+
+		return name;
+	}
+
+
 }

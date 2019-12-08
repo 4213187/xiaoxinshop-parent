@@ -1,1 +1,2 @@
 com\xiaoxinshop\user\controller\UserController.class
+com\xiaoxinshop\user\service\UserDetailServiceImpl.class

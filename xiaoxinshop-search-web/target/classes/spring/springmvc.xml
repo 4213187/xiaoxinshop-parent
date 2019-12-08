@@ -24,7 +24,7 @@
 	</mvc:annotation-driven>
 
 
-
+	<mvc:default-servlet-handler/>
 
 	<!-- 引用dubbo 服务 -->
 	<dubbo:protocol name="dubbo" port="20885"></dubbo:protocol>

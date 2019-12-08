@@ -66,7 +66,10 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 
 //      去空格
         String keywords = (String)searchMap.get("keywords");
-        keywords =keywords.replace(" ","");
+        if (keywords!=null && keywords.length()>0 &&keywords.indexOf(" ")>=0){
+            keywords =keywords.replace(" ","");
+        }
+
         searchMap.put("keywords",keywords);
 
 //      1.查询列表

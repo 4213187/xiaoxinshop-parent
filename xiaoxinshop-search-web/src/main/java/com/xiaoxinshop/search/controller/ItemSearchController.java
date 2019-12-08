@@ -2,6 +2,7 @@ package com.xiaoxinshop.search.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.xiaoxinshop.search.service.ItemSearchService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -22,4 +23,17 @@ public class ItemSearchController {
     public Map<String, Object> search(@RequestBody Map searchMap ){
         return  itemSearchService.search(searchMap);
     }
+
+
+    @RequestMapping("/name")
+    public String showName() {
+
+        //得到登陆人账号
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        System.out.println(name);
+
+        return name;
+    }
+
 }

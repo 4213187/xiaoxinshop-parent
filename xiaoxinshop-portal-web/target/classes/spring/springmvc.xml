@@ -24,6 +24,7 @@
 	</mvc:annotation-driven>
 
 
+	<mvc:default-servlet-handler/>
 
 
 	<!-- 引用dubbo 服务 -->

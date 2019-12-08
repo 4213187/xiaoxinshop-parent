@@ -1,3 +1,0 @@
-0:0:0:0:0:0:0:1 - - [27/Nov/2019:22:10:20 +0800] "GET /content/findByCategoryId?categoryId=1 HTTP/1.1" 200 721 http-bio-9003-exec-1 2607
-0:0:0:0:0:0:0:1 - - [27/Nov/2019:22:11:12 +0800] "GET /content/findByCategoryId?categoryId=1 HTTP/1.1" 200 721 http-bio-9003-exec-2 11
-0:0:0:0:0:0:0:1 - - [27/Nov/2019:22:11:18 +0800] "GET /content/findByCategoryId?categoryId=1 HTTP/1.1" 200 721 http-bio-9003-exec-3 6

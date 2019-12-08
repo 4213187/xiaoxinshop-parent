@@ -45,7 +45,11 @@ public class ItemCatServiceImpl implements ItemCatService {
      */
     @Override
     public void add(ItemCat itemCat) {
+
         itemCatMapper.insert(itemCat);
+
+        redisTemplate.boundHashOps("itemCat").put(itemCat.getName(), itemCat.getTypeId());
+        System.out.println("模板放入缓存");
     }
 
 
@@ -88,18 +92,16 @@ public class ItemCatServiceImpl implements ItemCatService {
 
     @Autowired
     private RedisTemplate redisTemplate;
+
     @Override
     public List<ItemCat> findByParentId(Long parentId) {
 
         List<ItemCat> itemCats = itemCatMapper.findAll();
 
-        for (ItemCat itemCat: itemCats ) {
-            redisTemplate.boundHashOps("itemCat").put(itemCat.getName(),itemCat.getTypeId());
 
-        }
-        System.out.println("模板放入缓存");
-
-        return itemCatMapper.findByParentId(parentId);
+        List<ItemCat> itemCatList = itemCatMapper.findByParentId(parentId);
+        System.out.println(itemCatList);
+        return itemCatList;
     }
 
 }
