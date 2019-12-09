@@ -30,6 +30,9 @@
         <module>xiaoxinshop-user-interface</module>
         <module>xiaoxinshop-user-service</module>
         <module>xiaoxinshop-user-web</module>
+        <module>xiaoxinshop-cart-interface</module>
+        <module>xiaoxinshop-cart-service</module>
+        <module>xiaoxinshop-cart-web</module>
 
 
     </modules>

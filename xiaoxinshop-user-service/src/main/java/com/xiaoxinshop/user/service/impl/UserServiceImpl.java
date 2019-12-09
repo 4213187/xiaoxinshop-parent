@@ -73,6 +73,7 @@ public class UserServiceImpl implements UserService {
 		map.put("phone",phone);
 		map.put("code",code);
 		String mapStr = JSON.toJSONString(map);
+
 		jmsTemplate.send(queueMessageDestination, new MessageCreator() {
 			@Override
 			public Message createMessage(Session session) throws JMSException {

@@ -31,22 +31,27 @@
 
 
 			$scope.search=function(){
-				location.href="search.html#?keywords="+$scope.keywords;
+				var tempwindow=window.open('_blank');
+				tempwindow.location="http://localhost:9004/search.html#?keywords="+$scope.keywords;
+
 			}
 
 
 			$scope.showName = function () {
-				$http.get('http://localhost:9003/content/name').success(
-						function (response) {
-							$scope.loginName=response;
-							console.log($scope.loginName);
+				setTimeout(function (){
 
-						}
-				);
+					$http.get('http://localhost:9003/content/name').success(
+							function (response) {
+								$scope.loginName=response;
+								console.log($scope.loginName);
+
+							}
+					);
+
+				}, 1000);
+
+
 			}
-
-
-
 
 
 		});
