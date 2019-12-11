@@ -1,2 +1,4 @@
+com\xiaoxinshop\cart\controller\AddressController.class
 com\xiaoxinshop\cart\controller\CartController.class
+com\xiaoxinshop\cart\controller\OrderController.class
 com\xiaoxinshop\cart\service\UserDetailServiceImpl.class

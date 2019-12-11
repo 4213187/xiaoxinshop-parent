@@ -33,6 +33,8 @@
         <module>xiaoxinshop-cart-interface</module>
         <module>xiaoxinshop-cart-service</module>
         <module>xiaoxinshop-cart-web</module>
+        <module>xiaoxinshop-order-interface</module>
+        <module>xiaoxinshop-order-service</module>
 
 
     </modules>

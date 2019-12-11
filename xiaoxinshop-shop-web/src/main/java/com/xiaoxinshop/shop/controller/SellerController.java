@@ -7,6 +7,8 @@ import com.xiaoxinshop.entity.Seller;
 import com.xiaoxinshop.service.SellerService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 
@@ -174,12 +176,16 @@ public class SellerController {
 	}
 
 
+	@CrossOrigin(origins = "http://localhost:63343" ,allowCredentials = "true")
 	@RequestMapping(value = "/login",method = RequestMethod.POST)
-	public ResultVo login(@RequestBody Seller seller) {
+	public ResultVo login(@RequestBody Seller seller, HttpServletRequest httpServletRequest) {
 		System.out.println("sellerlogin");
 		try {
 			Seller login = sellerService.findLogin(seller);
 			if (login != null){
+				HttpSession session = httpServletRequest.getSession();
+				session.setAttribute("seller",seller);
+
 				return  new ResultVo(true,"登陆成功");
 			}else {
 				return  new ResultVo(false,"登陆失败");
@@ -189,8 +195,33 @@ public class SellerController {
 			return  new ResultVo(false,"登陆失败");
 		}
 
-
-
 	}
+	@CrossOrigin(origins = "http://localhost:63343" ,allowCredentials = "true")
+	@RequestMapping(value = "/check")
+	public  ResultVo check(HttpServletRequest httpServletRequest){
+		HttpSession session = httpServletRequest.getSession();
+		Seller seller =(Seller) session.getAttribute("seller");
+		if (seller!=null){
+
+			return  new ResultVo(true,seller.getSellerId()) ;
+		}else {
+			return  new ResultVo(false,"未登录") ;
+		}
+	}
+
+	@CrossOrigin(origins = "http://localhost:63343" ,allowCredentials = "true")
+	@RequestMapping(value = "/logout")
+	public  ResultVo logout(HttpServletRequest httpServletRequest){
+		HttpSession session = httpServletRequest.getSession();
+		session.removeAttribute("seller");
+		Seller seller = (Seller) session.getAttribute("seller");
+		if (seller!=null){
+
+			return  new ResultVo(false,"退出失败") ;
+		}else {
+			return  new ResultVo(true,"退出成功") ;
+		}
+	}
+
 
 }

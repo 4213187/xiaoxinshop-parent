@@ -1,2 +1,3 @@
 com\xiaoxinshop\util\CookieUtil.class
 com\xiaoxinshop\util\FastDFSClient.class
+com\xiaoxinshop\util\IdWorker.class

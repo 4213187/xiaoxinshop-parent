@@ -40,12 +40,13 @@ public class CartController {
     @RequestMapping("/findCartList")
     public List<Cart> findCartList(){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-//      未登录
+
         String cartListString = CookieUtil.getCookieValue(request, "cartList","UTF-8");
         if(cartListString==null || cartListString.equals("")){
             cartListString="[]";
         }
         List<Cart> cartList_cookie = JSON.parseArray(cartListString, Cart.class);
+ //     未登录
         if ("anonymousUser".equals(username)){
             System.out.println("向cookies获取购物车");
             return cartList_cookie;

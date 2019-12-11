@@ -135,6 +135,18 @@
           <version>1.0-SNAPSHOT</version>
           <scope>compile</scope>
       </dependency>
+      <dependency>
+          <groupId>com.xiaoxinshop</groupId>
+          <artifactId>xiaoxinshop-user-interface</artifactId>
+          <version>1.0-SNAPSHOT</version>
+          <scope>compile</scope>
+      </dependency>
+      <dependency>
+          <groupId>com.xiaoxinshop</groupId>
+          <artifactId>xiaoxinshop-order-interface</artifactId>
+          <version>1.0-SNAPSHOT</version>
+          <scope>compile</scope>
+      </dependency>
   </dependencies>
 
   <build>

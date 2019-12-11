@@ -77,9 +77,23 @@
                 $scope.sku={id:0,title:'--------',price:0};//如果没有匹配的
             }
 
+
+            //添加商品到购物车
             $scope.addToCart=function(){
-                alert('skuid:'+$scope.sku.id);
+                $http.get('http://localhost:9007/cart/addGoodsToCartList?itemId='
+                    + $scope.sku.id +'&num='+$scope.num,{'withCredentials':true}).success(
+                    function(response){
+                        if(response.success){
+                            //跳转到购物车页面
+                            location.href='http://localhost:9007/cart.html';
+                        }else{
+                            alert(response.message);
+                        }
+
+                    }
+                );
             }
+
 
 
 
