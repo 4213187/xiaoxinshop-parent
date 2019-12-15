@@ -3,12 +3,10 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-import com.xiaoxinshop.entity.Cart;
-import com.xiaoxinshop.entity.Order;
-import com.xiaoxinshop.entity.OrderItem;
-import com.xiaoxinshop.entity.PageResult;
+import com.xiaoxinshop.entity.*;
 import com.xiaoxinshop.mapper.OrderItemMapper;
 import com.xiaoxinshop.mapper.OrderMapper;
+import com.xiaoxinshop.mapper.PayLogMapper;
 import com.xiaoxinshop.order.service.OrderService;
 import com.xiaoxinshop.util.IdWorker;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,14 +51,22 @@ public class OrderServiceImpl implements OrderService {
 	IdWorker idWorker;
 	@Autowired
 	OrderItemMapper orderItemMapper;
+
+	@Autowired
+	PayLogMapper payLogMapper;
 	/**
 	 * 增加
 	 */
 	@Override
-	public void add(Order order) {
+	public String add(Order order) {
 //		从redis中获取对应购物车列表
 		List<Cart> cartList = (List<Cart>)redisTemplate.boundHashOps("cartList").get(order.getUserId());
 		System.out.println("cartList"+cartList);
+
+
+//		支付日志 对应订单号
+		StringBuilder orderList =  new StringBuilder("");
+		double totalMoney=0;
 		for (Cart cart: cartList ) {
 
 			Order newOrder = new Order();
@@ -101,9 +107,37 @@ public class OrderServiceImpl implements OrderService {
 			newOrder.setPayment(new BigDecimal(money));
 			orderMapper.insert(newOrder);
 
+//			支付日志 添加对应订单号
+			if ("".equals(orderList.toString())){
+				System.out.println("第一次添加订单");
+				orderList.append(orderId);
+			}else {
+				orderList.append((","+orderId));
+			}
+
+//			支付日志 总金额
+			totalMoney += money;
+
 
 		}
-		redisTemplate.boundHashOps("cartList").delete(order.getUserId());
+
+		PayLog  payLog = new PayLog();
+		Long outTradeNo = idWorker.nextId();
+		payLog.setOutTradeNo(outTradeNo+"");
+		payLog.setCreateTime(new Date());
+		payLog.setUserId(order.getUserId());
+		payLog.setOrderList(orderList.toString());
+		System.out.println(payLog.getOrderList());
+//		未支付
+		payLog.setTradeState("0");
+		payLog.setTotalFee((long)(totalMoney*100));
+		System.out.println(payLog.getTotalFee());
+		payLog.setPayType("1");
+		payLogMapper.insert(payLog);
+
+ 		redisTemplate.boundHashOps("cartList").delete(order.getUserId());
+
+ 		return payLog.getOutTradeNo();
 
 	}
 
@@ -142,5 +176,21 @@ public class OrderServiceImpl implements OrderService {
 		PageHelper.startPage(pageNum, pageSize);
 		return  null;
 	}
-	
+
+	@Override
+	public void updateOrderStatus(String status, String tradeNo) {
+		PayLog payLog = payLogMapper.selectByPrimaryKey(tradeNo);
+		if (!"-1".equals(status)){
+			String[] strings = payLog.getOrderList().split(",");
+			for (String orderId : strings){
+				Order order = orderMapper.selectByPrimaryKey(Long.parseLong(orderId));
+				order.setStatus(status);
+				orderMapper.updateByPrimaryKey(order);
+			}
+		}
+        payLog.setPayTime(new Date());
+		payLog.setTradeState(status);
+		payLogMapper.updateByPrimaryKeySelective(payLog);
+	}
+
 }

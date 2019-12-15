@@ -21,7 +21,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 @RequestMapping("/order")
 public class OrderController {
 
-	@Reference
+	@Reference(timeout = 3600)
 	private OrderService orderService;
 	
 	/**
@@ -50,14 +50,16 @@ public class OrderController {
 	 */
 	@RequestMapping(value = "/add",method = RequestMethod.POST)
 	public ResultVo add(@RequestBody Order order){
+
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
 		order.setUserId(username);
 		order.setSourceType("2");
-		System.out.println(order.getUserId()+"add");
+
 		try {
-			orderService.add(order);
-			return new ResultVo(true, "增加成功");
+			System.out.println(order.getUserId()+"add");
+			String  outTradeNo= orderService.add(order);
+			return new ResultVo(true, outTradeNo);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResultVo(false, "增加失败");
@@ -116,6 +118,18 @@ public class OrderController {
 	@RequestMapping("/search")
 	public PageResult search(@RequestBody Order order, int page, int rows  ){
 		return orderService.findPage(order, page, rows);		
+	}
+
+
+	@RequestMapping("/updateOrderStatus")
+	public ResultVo updateOrderStatus(String status,String tradeNo  ){
+		try {
+			orderService.updateOrderStatus(status, tradeNo);
+			return new ResultVo(true, "成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResultVo(false, "失败");
+		}
 	}
 	
 }

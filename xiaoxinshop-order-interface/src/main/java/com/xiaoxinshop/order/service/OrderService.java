@@ -28,7 +28,7 @@ public interface OrderService {
 	/**
 	 * 增加
 	*/
-	public void add(Order order);
+	public String add(Order order);
 	
 	
 	/**
@@ -58,5 +58,7 @@ public interface OrderService {
 	 * @return
 	 */
 	public PageResult findPage(Order order, int pageNum, int pageSize);
-	
+
+
+	public  void updateOrderStatus(String status,String tradeNo  );
 }

@@ -24,6 +24,7 @@
                 console.log(type);
             }
 
+
             $scope.submitOrder = function () {
                 $scope.order.receiverAreaName = $scope.address.address;
                 $scope.order.receiverMobile = $scope.address.mobile;
@@ -34,8 +35,9 @@
                         if (response.success) {
                             //页面跳转
                             if ($scope.order.paymentType == '1') {
-								//如果是微信支付，跳转到支付页面
-                                location.href = "pay.html";
+								//如果是微信支付，携带订单号跳转到支付页面
+                                console.log(response.message);
+                                location.href = "pay.html#?tradeNo="+response.message;
                             } else {
 								//如果货到付款，跳转到提示页面
                                 location.href = "paysuccess.html";
@@ -45,6 +47,7 @@
                         }
                     }
                 );
+
             }
 
 
@@ -82,6 +85,7 @@
             //选择地址
             $scope.selectAddress = function (address) {
                 $scope.address = address;
+                console.log( $scope.address);
             }
 
             //判断是否是当前选中的地址
@@ -137,6 +141,103 @@
 
 
             }
+            //读取省
+            $scope.findAllProvince = function () {
+
+                $http.get('http://localhost:9007/addr/findAllProvince').success(
+                    function (response) {
+                        $scope.provinces =  response;
+
+                    }
+                );
+
+
+            }
+
+            //读取所有的省
+            $scope.findAllProvinces = function () {
+
+                $http.get('http://localhost:9007/addr/findAllProvince').success(
+                    function (response) {
+                        $scope.provinceList =  response;
+
+                    }
+                );
+
+
+            }
+
+
+            //读取所有的市
+            $scope.findAllCities = function () {
+
+                $http.get('http://localhost:9007/addr/findAllCities').success(
+                    function (response) {
+                        $scope.cityList =  response;
+
+                    }
+                );
+
+            }
+
+            //读取所有的区
+            $scope.findAllAreas = function () {
+
+                $http.get('http://localhost:9007/addr/findAllAreas').success(
+                    function (response) {
+                        $scope.areaList =  response;
+
+                    }
+                );
+
+            }
+
+
+
+
+
+
+            //读取市
+            $scope.$watch('newAddress.provinceId', function (newValue, oldValue) {
+                var provinceId = '110000';
+                console.log("newValue"+newValue);
+                for (var i in $scope.provinces ){
+
+                    if ($scope.provinces[i].id ==newValue){
+
+                        provinceId =$scope.provinces[i].provinceid;
+                    }
+                }
+                $http.get('http://localhost:9007/addr/findCitiesByProvinceId?provinceId=' + provinceId).success(
+                    function (response) {
+                        $scope.Cities = response;
+
+                    }
+                );
+            });
+
+            //读取县
+            $scope.$watch('newAddress.cityId', function (newValue, oldValue) {
+                var cityId = '110000';
+
+                for (var i in  $scope.Cities ){
+
+                    if ($scope.Cities[i].id ==newValue){
+
+                        cityId =$scope.Cities[i].cityid;
+                    }
+                }
+                $http.get('http://localhost:9007/addr/findAreasByCityId?cityId=' + cityId).success(
+                    function (response) {
+                        $scope.Areas = response;
+
+                    }
+                );
+            });
+
+
+
+
 
         });
 
@@ -144,7 +245,7 @@
 
 </head>
 
-<body ng-app="xiaoxinshop" ng-controller="orderInfoController" ng-init="findAddressList();showName();findCartList()">
+<body ng-app="xiaoxinshop" ng-controller="orderInfoController" ng-init="findAddressList();showName();findCartList();findAllProvinces();findAllCities();findAllAreas();">
 <!--head-->
 <div class="top">
     <div class="py-container">
@@ -198,7 +299,7 @@
             <!--收件人信息-->
             <div class="step-tit">
                 <h5>收件人信息<span><a data-toggle="modal" data-target=".edit" data-keyboard="false"
-                                  class="newadd">新增收货地址</a></span></h5>
+                                  class="newadd" ng-click="findAllProvince()">新增收货地址</a></span></h5>
             </div>
             <div class="step-cont">
                 <div class="addressInfo">
@@ -209,7 +310,7 @@
                                 <div class="con name {{isSelectedAddress(address)?'selected':''}}"><a
                                         ng-click="selectAddress(address)">{{address.contact}}<span title="点击取消选择"/>&nbsp;</a>
                                 </div>
-                                <div class="con address">{{address.address}} <span>{{address.mobile}}</span>
+                                <div class="con address">{{provinceList[address.provinceId-1].province}},{{cityList[address.cityId-1].city}},{{areaList[address.townId-1].area}},{{address.address}} <span>{{address.mobile}}</span>
                                     <span class="base" ng-if="address.isDefault=='1'">默认地址</span>
                                     <span class="edittext"><a data-toggle="modal" data-target=".edit"
                                                               data-keyboard="false">编辑</a>&nbsp;&nbsp;<a
@@ -239,7 +340,24 @@
                                                 <input type="text" class="input-medium" ng-model="newAddress.contact">
                                             </div>
                                         </div>
-
+                                        <div class="control-group">
+                                         <label class="control-label">地址：</label>
+                                        <td>
+                                            <select class="form-control" ng-model="newAddress.provinceId"
+                                                    ng-options="item.id as item.province for item in provinces">
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select class="form-control" ng-model="newAddress.cityId"
+                                                    ng-options="item.id as item.city for item in Cities">
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select class="form-control" ng-model="newAddress.townId"
+                                                    ng-options="item.id as item.area for item in Areas ">
+                                            </select>
+                                        </td>
+                                        </div>
                                         <div class="control-group">
                                             <label class="control-label">详细地址：</label>
                                             <div class="controls">
@@ -370,7 +488,7 @@
     </div>
     <div class="clearfix trade">
         <div class="fc-price">应付金额:　<span class="price">¥{{totalValue.totalMoney}}</span></div>
-        <div class="fc-receiverInfo">寄送至:{{address.address}} 收货人：{{address.contact}} {{address.mobile}}</div>
+        <div class="fc-receiverInfo">寄送至:{{provinceList[address.provinceId-1].province}},{{cityList[address.cityId-1].city}},{{areaList[address.townId-1].area}},{{address.address}} 收货人：{{address.contact}} {{address.mobile}}</div>
     </div>
     <div class="submit">
         <a class="sui-btn btn-danger btn-xlarge" ng-click="submitOrder()">提交订单</a>
@@ -502,8 +620,7 @@
                     <li>友情链接<span class="space"></span></li>
                     <li>关于我们</li>
                 </ul>
-                <p>地址：北京市昌平区建材城西路金燕龙办公楼一层 邮编：100096 电话：400-618-4000 传真：010-82935100</p>
-                <p>京ICP备08001421号京公网安备110108007702</p>
+
             </div>
         </div>
     </div>
