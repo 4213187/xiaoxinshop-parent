@@ -55,6 +55,32 @@
     and  is_delete is null
   </select>
 
+
+  <select id="findAll" resultMap="BaseResultMap" parameterType="Goods" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_goods
+    where 1=1
+    <if test="sellerId !=null and sellerId !=''">
+      and seller_id = #{sellerId}
+    </if>
+
+    <if test="auditStatus !=null and auditStatus !=''">
+      and audit_status in ('0','1')
+    </if>
+
+    <if test="goodsName !=null and goodsName !=''">
+      and goods_name like '%${goodsName}%'
+    </if>
+
+    <if test="isMarketable !=null and isMarketable !=''">
+      and  is_marketable  = #{isMarketable}
+    </if>
+    and  is_delete is null
+    order by
+  </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from tb_goods
     where id = #{id,jdbcType=BIGINT}

@@ -71,6 +71,20 @@ public class UserController {
         }
     }
 
+    @RequestMapping(value = "/checkSms")
+    public ResultVo checkSms(String phone ,String  code) {
+
+         if (userService.checkUpdateSmsCode(phone, code)){
+             return new ResultVo(true, "验证成功");
+         }else{
+             return new ResultVo(false, "验证码不正确");
+         }
+
+    }
+
+
+
+
     /**
      * 发送短信验证码
      *
@@ -91,6 +105,19 @@ public class UserController {
         }
     }
 
+    @RequestMapping("/sendUpdateCode")
+    public ResultVo sendUpdateCode(String phone) {
+        //判断手机号格式
+        try {
+            //生成验证码 并把验证码发送给ActiveMQ 以及放入缓存
+            userService.updateSmsCode(phone);
+            return new ResultVo(true, "验证码发送成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResultVo(true, "验证码发送失败");
+        }
+    }
+
 
     /**
      * 修改
@@ -98,8 +125,26 @@ public class UserController {
      * @param user
      * @return
      */
-    @RequestMapping("/update")
+    @RequestMapping(value = "/update",method = RequestMethod.POST)
     public ResultVo update(@RequestBody User user) {
+        try {
+            userService.update(user);
+            return new ResultVo(true, "修改成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResultVo(false, "修改失败");
+        }
+    }
+
+    @RequestMapping(value = "/updatePhone", method = RequestMethod.POST)
+    public ResultVo updatePhone(@RequestBody User user, String smscode) {
+
+        boolean checkSmsCode = userService.checkSmsCode(user.getPhone(), smscode);
+        if (checkSmsCode == false) {
+            return new ResultVo(false, "验证码输入错误！");
+        }
+
+
         try {
             userService.update(user);
             return new ResultVo(true, "修改成功");
@@ -118,6 +163,15 @@ public class UserController {
     @RequestMapping("/findById")
     public User findById(Long id) {
         return userService.findById(id);
+    }
+
+
+    @RequestMapping("/findByUserName")
+    public User findByUserName()
+    {
+        //得到登陆人账号
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+       return  userService.findByUserName(name);
     }
 
     /**

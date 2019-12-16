@@ -15,6 +15,8 @@ public interface GoodsMapper {
 
     List<Goods> find(Goods goods);
 
+    List<Goods> findAll(Goods goods);
+
     int updateByPrimaryKeySelective(Goods record);
 
 

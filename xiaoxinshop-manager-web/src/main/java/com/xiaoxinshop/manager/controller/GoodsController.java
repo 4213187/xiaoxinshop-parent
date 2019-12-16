@@ -204,22 +204,7 @@ public class GoodsController {
         return goodsService.findPage(goods, pageNum, pageSize);
     }
 
-//    @Autowired
-//    Destination queueMessageDestination;
-//
-//    @RequestMapping("/genHtml")
-//    public void genHtml() {
-//        Map<String,String> map = new HashMap();
-//        map.put("phone","17633331115");
-//        map.put("code","1111");
-//        String mapStr = JSON.toJSONString(map);
-//        jmsTemplate.send(queueMessageDestination, new MessageCreator() {
-//           @Override
-//           public Message createMessage(Session session) throws JMSException {
-//               return session.createTextMessage(mapStr);
-//           }
-//       });
-//    }
+
 
 
 }

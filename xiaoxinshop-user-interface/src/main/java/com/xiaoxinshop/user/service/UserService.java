@@ -32,12 +32,27 @@ public interface UserService {
 	public  void createSmsCode(String phone);
 
 	/**
+	 * 生成验证码
+	 * @param phone
+	 */
+	public  void updateSmsCode(String phone);
+
+
+	/**
 	 * 校验验证码
 	 * @param phone
 	 * @param code
 	 * @return
 	 */
 	public boolean  checkSmsCode(String phone,String code);
+
+	/**
+	 * 校验验证码
+	 * @param phone
+	 * @param code
+	 * @return
+	 */
+	public boolean  checkUpdateSmsCode(String phone,String code);
 	
 	
 	/**
@@ -58,6 +73,13 @@ public interface UserService {
 	 * @return
 	 */
 	public User findById(Long id);
+
+	/**
+	 * 通过名字查询对应的用户
+	 * @param name
+	 * @return
+	 */
+	public User findByUserName(String name);
 	
 	
 	/**

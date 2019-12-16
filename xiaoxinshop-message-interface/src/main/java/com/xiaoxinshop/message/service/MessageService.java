@@ -14,4 +14,12 @@ public interface MessageService {
      * @return
      */
   boolean  sendSms(String phone,String code);
+
+    /**
+     * 发送更新验证码
+     * @param phone
+     * @param code
+     * @return
+     */
+    boolean sendUpdateSms(String phone, String code);
 }

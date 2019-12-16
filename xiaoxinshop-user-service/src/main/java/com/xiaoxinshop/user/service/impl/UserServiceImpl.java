@@ -66,8 +66,10 @@ public class UserServiceImpl implements UserService {
 
 
 		String code =  (long) (Math.random()*1000000)+"";
-		redisTemplate.boundValueOps(phone).set(code);
-		redisTemplate.boundValueOps(phone).expire(600L, TimeUnit.SECONDS);
+
+		String key = "register"+phone;
+		redisTemplate.boundValueOps(key).set(code);
+		redisTemplate.boundValueOps(key).expire(600L, TimeUnit.SECONDS);
 
 		Map<String,String> map = new HashMap();
 		map.put("phone",phone);
@@ -82,9 +84,44 @@ public class UserServiceImpl implements UserService {
 		});
 	}
 
+	@Autowired
+	Destination queueUpdateMessageDestination;
+	@Override
+	public void updateSmsCode(String phone) {
+
+		String code =  (long) (Math.random()*1000000)+"";
+		String key = "update"+phone;
+		redisTemplate.boundValueOps(key).set(code);
+		redisTemplate.boundValueOps(key).expire(600L, TimeUnit.SECONDS);
+
+		Map<String,String> map = new HashMap();
+		map.put("phone",phone);
+		map.put("code",code);
+		String mapStr = JSON.toJSONString(map);
+
+		jmsTemplate.send(queueUpdateMessageDestination, new MessageCreator() {
+			@Override
+			public Message createMessage(Session session) throws JMSException {
+				return session.createTextMessage(mapStr);
+			}
+		});
+	}
+
 	@Override
 	public boolean checkSmsCode(String phone, String code) {
-		String smsCode =(String) redisTemplate.boundValueOps(phone).get();
+		String key = "register"+phone;
+		String smsCode =(String) redisTemplate.boundValueOps(key).get();
+		if (smsCode!=null && smsCode.equals(code)){
+			return  true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean checkUpdateSmsCode(String phone, String code) {
+		String key = "update"+phone;
+		String smsCode =(String) redisTemplate.boundValueOps(key).get();
+		System.out.println(smsCode);
 		if (smsCode!=null && smsCode.equals(code)){
 			return  true;
 		}
@@ -110,7 +147,8 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public void update(User user){
-		userMapper.updateByPrimaryKey(user);
+		user.setUpdated(new Date());
+		userMapper.updateByPrimaryKeySelective(user);
 	}	
 	
 	/**
@@ -121,6 +159,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User findById(Long id){
 		return userMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public User findByUserName(String name) {
+		return userMapper.selectByUserName(name);
 	}
 
 	/**

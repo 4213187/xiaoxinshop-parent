@@ -69,9 +69,10 @@ public class SellerController {
 	 * @param seller
 	 * @return
 	 */
-	@RequestMapping("/update")
+	@RequestMapping(value = "/update",method = RequestMethod.POST)
 	public ResultVo update(@RequestBody Seller seller){
 		try {
+			System.out.println("update");
 			sellerService.update(seller);
 			return new ResultVo(true, "修改成功");
 		} catch (Exception e) {
@@ -79,6 +80,9 @@ public class SellerController {
 			return new ResultVo(false, "修改失败");
 		}
 	}
+
+
+
 
 	@RequestMapping("/update1")
 	public ResultVo update1( String sellerId){
@@ -184,7 +188,7 @@ public class SellerController {
 			Seller login = sellerService.findLogin(seller);
 			if (login != null){
 				HttpSession session = httpServletRequest.getSession();
-				session.setAttribute("seller",seller);
+				session.setAttribute("seller",login);
 
 				return  new ResultVo(true,"登陆成功");
 			}else {
@@ -221,6 +225,16 @@ public class SellerController {
 		}else {
 			return  new ResultVo(true,"退出成功") ;
 		}
+	}
+
+
+	@CrossOrigin(origins = "http://localhost:63343" ,allowCredentials = "true")
+	@RequestMapping(value = "/toUpdate")
+	public  Seller toUpdate(HttpServletRequest httpServletRequest){
+		HttpSession session = httpServletRequest.getSession();
+		Seller seller =(Seller) session.getAttribute("seller");
+		Seller seller1 = sellerService.findById(seller.getSellerId());
+		return  seller1;
 	}
 
 

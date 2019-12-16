@@ -36,6 +36,16 @@
     from tb_user
     where id = #{id,jdbcType=BIGINT}
   </select>
+
+
+  <select id="selectByUserName" resultMap="BaseResultMap" parameterType="string" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_user
+    where username = #{username}
+  </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from tb_user
     where id = #{id,jdbcType=BIGINT}

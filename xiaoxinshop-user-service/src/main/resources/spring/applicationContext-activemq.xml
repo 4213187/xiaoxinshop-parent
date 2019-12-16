@@ -29,6 +29,10 @@
 		<constructor-arg value="xiaoxinshop_queue_message"/>
 	</bean>
 
+	<!--这个是队列目的地，点对点-->
+	<bean id="queueUpdateMessageDestination" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="xiaoxinshop_queue_UpdateMessage"/>
+	</bean>
 
 
 </beans>
