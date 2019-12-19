@@ -26,6 +26,13 @@
     where id = #{id,jdbcType=BIGINT}
   </select>
 
+  <select id="findByIsDefault" resultMap="BaseResultMap" parameterType="string" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_address
+    where  is_default = '1' and user_id =#{userId}
+  </select>
+
 
   <select id="findListByUserId" resultMap="BaseResultMap" parameterType="string" >
     select

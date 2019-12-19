@@ -15,7 +15,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Order  implements Serializable {
-    private Long orderId;
+    private String orderId;
 
     private BigDecimal payment;
 

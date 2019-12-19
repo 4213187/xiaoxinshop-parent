@@ -35,6 +35,12 @@ public interface AddressService {
 	 * 修改
 	 */
 	public void update(Address address);
+
+
+	/**
+	 * 修改默认地址
+	 */
+	public void updateIsDefault(Long id,String userId);
 	
 
 	/**
@@ -43,8 +49,15 @@ public interface AddressService {
 	 * @return
 	 */
 	public Address findById(Long id);
-	
-	
+
+	/**
+	 * 查询出默认地址
+	 * @return
+	 */
+	public Address findByIsDefault(String userId);
+
+
+
 	/**
 	 * 批量删除
 	 * @param ids

@@ -26,7 +26,7 @@
 
 
             $scope.submitOrder = function () {
-                $scope.order.receiverAreaName = $scope.address.address;
+                $scope.order.receiverAreaName = provinceList[address.provinceId-1].province+cityList[address.cityId-1].city+areaList[address.townId-1].area+$scope.address.address;
                 $scope.order.receiverMobile = $scope.address.mobile;
                 $scope.order.receiver = $scope.address.contact;
 
@@ -141,18 +141,7 @@
 
 
             }
-            //读取省
-            $scope.findAllProvince = function () {
 
-                $http.get('http://localhost:9007/addr/findAllProvince').success(
-                    function (response) {
-                        $scope.provinces =  response;
-
-                    }
-                );
-
-
-            }
 
             //读取所有的省
             $scope.findAllProvinces = function () {
@@ -194,7 +183,18 @@
 
 
 
+            //读取省
+            $scope.findAllProvince = function () {
 
+                $http.get('http://localhost:9007/addr/findAllProvince').success(
+                    function (response) {
+                        $scope.provinces =  response;
+
+                    }
+                );
+
+
+            }
 
 
             //读取市

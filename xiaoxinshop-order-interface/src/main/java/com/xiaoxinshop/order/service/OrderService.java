@@ -1,6 +1,8 @@
 package com.xiaoxinshop.order.service;
 import java.util.List;
+import java.util.Map;
 
+import com.xiaoxinshop.entity.GOrder;
 import com.xiaoxinshop.entity.Order;
 import com.xiaoxinshop.entity.PageResult;
 
@@ -11,6 +13,12 @@ import com.xiaoxinshop.entity.PageResult;
  */
 public interface OrderService {
 
+	/**
+	 * 查询该用户所有的订单
+	 * @param userId
+	 * @return
+	 */
+	List<GOrder> findByUserName(String userId,String status);
 	/**
 	 * 返回全部列表
 	 * @return
@@ -42,23 +50,20 @@ public interface OrderService {
 	 * @param id
 	 * @return
 	 */
-	public Order findById(Long id);
+	public Order findById(String id);
 	
 	
 	/**
 	 * 批量删除
 	 * @param ids
 	 */
-	public void delete(Long[] ids);
+	public void delete(String[] ids);
 
-	/**
-	 * 分页
-	 * @param pageNum 当前页 码
-	 * @param pageSize 每页记录数
-	 * @return
-	 */
-	public PageResult findPage(Order order, int pageNum, int pageSize);
+
+	public PageResult findPage(int  pageNum,int pageSize, String userId, String status);
 
 
 	public  void updateOrderStatus(String status,String tradeNo  );
+
+	  void updateOrder(String status,String orderId  );
 }

@@ -67,4 +67,6 @@ public interface AddrService {
      */
     List<Area> findAreasByCityId(String cityId);
 
+
+
 }

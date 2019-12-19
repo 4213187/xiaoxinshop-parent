@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.xiaoxinshop.mapper.OrderMapper" >
   <resultMap id="BaseResultMap" type="com.xiaoxinshop.entity.Order" >
-    <id column="order_id" property="orderId" jdbcType="BIGINT" />
+    <id column="order_id" property="orderId" jdbcType="VARCHAR" />
     <result column="payment" property="payment" jdbcType="DECIMAL" />
     <result column="payment_type" property="paymentType" jdbcType="VARCHAR" />
     <result column="post_fee" property="postFee" jdbcType="VARCHAR" />
@@ -34,15 +34,77 @@
     buyer_nick, buyer_rate, receiver_area_name, receiver_mobile, receiver_zip_code, receiver, 
     expire, invoice_type, source_type, seller_id
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from tb_order
-    where order_id = #{orderId,jdbcType=BIGINT}
+    where order_id = #{orderId,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+
+  <select id="findByUserName" resultMap="GOrderResultMap"  >
+    select
+   o.order_id oorder_id, o.payment opayment, o.payment_type opayment_type, o.post_fee opost_fee, o.status ostatus, o.create_time ocreate_time, o.update_time oupdate_time, o.payment_time opayment_time,
+    o.consign_time oconsign_time, o.end_time oend_time, o.close_time oclose_time, o.shipping_name oshipping_name, o.shipping_code oshipping_code, o.user_id ouser_id, o.buyer_message obuyer_message,
+    o.buyer_nick obuyer_nick, o.buyer_rate obuyer_rate, o.receiver_area_name oreceiver_area_name, o.receiver_mobile oreceiver_mobile, o.receiver_zip_code oreceiver_zip_code, o.receiver oreceiver,
+    o.expire oexpire, o.invoice_type oinvoice_type, o.source_type osource_type, o.seller_id oseller_id,
+    i.id iid, i.item_id iitem_id, i.goods_id igoods_id, i.order_id iorder_id, i.title ititle, i.price iprice, i.num inum, i.total_fee itotal_fee, i.pic_path ipic_path, i.seller_id iseller_id
+
+    from tb_order o join tb_order_item  i on o.order_id = i.order_id
+    where 1=1
+    and o.user_id = #{userId}
+    <if test="status !=null and status !=''">
+      and  o.status =#{status}
+    </if>
+  </select>
+
+
+  <resultMap id="GOrderResultMap"  type="com.xiaoxinshop.entity.GOrder"  >
+
+    <id column="oorder_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="opayment" property="payment" jdbcType="DECIMAL" />
+    <result column="opayment_type" property="paymentType" jdbcType="VARCHAR" />
+    <result column="opost_fee" property="postFee" jdbcType="VARCHAR" />
+    <result column="ostatus" property="status" jdbcType="VARCHAR" />
+    <result column="ocreate_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="oupdate_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="opayment_time" property="paymentTime" jdbcType="TIMESTAMP" />
+    <result column="oconsign_time" property="consignTime" jdbcType="TIMESTAMP" />
+    <result column="oend_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="oclose_time" property="closeTime" jdbcType="TIMESTAMP" />
+    <result column="oshipping_name" property="shippingName" jdbcType="VARCHAR" />
+    <result column="oshipping_code" property="shippingCode" jdbcType="VARCHAR" />
+    <result column="ouser_id" property="userId" jdbcType="VARCHAR" />
+    <result column="obuyer_message" property="buyerMessage" jdbcType="VARCHAR" />
+    <result column="obuyer_nick" property="buyerNick" jdbcType="VARCHAR" />
+    <result column="obuyer_rate" property="buyerRate" jdbcType="VARCHAR" />
+    <result column="oreceiver_area_name" property="receiverAreaName" jdbcType="VARCHAR" />
+    <result column="oreceiver_mobile" property="receiverMobile" jdbcType="VARCHAR" />
+    <result column="oreceiver_zip_code" property="receiverZipCode" jdbcType="VARCHAR" />
+    <result column="oreceiver" property="receiver" jdbcType="VARCHAR" />
+    <result column="oexpire" property="expire" jdbcType="TIMESTAMP" />
+    <result column="oinvoice_type" property="invoiceType" jdbcType="VARCHAR" />
+    <result column="osource_type" property="sourceType" jdbcType="VARCHAR" />
+    <result column="oseller_id" property="sellerId" jdbcType="VARCHAR" />
+
+
+    <collection property="orderItemList" ofType="com.xiaoxinshop.entity.OrderItem">
+      <id column="iid" property="id" jdbcType="BIGINT" />
+      <result column="iitem_id" property="itemId" jdbcType="BIGINT" />
+      <result column="igoods_id" property="goodsId" jdbcType="BIGINT" />
+      <result column="iorder_id" property="orderId" jdbcType="BIGINT" />
+      <result column="ititle" property="title" jdbcType="VARCHAR" />
+      <result column="iprice" property="price" jdbcType="DECIMAL" />
+      <result column="inum" property="num" jdbcType="INTEGER" />
+      <result column="itotal_fee" property="totalFee" jdbcType="DECIMAL" />
+      <result column="ipic_path" property="picPath" jdbcType="VARCHAR" />
+      <result column="iseller_id" property="sellerId" jdbcType="VARCHAR" />
+    </collection>
+
+  </resultMap>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from tb_order
-    where order_id = #{orderId,jdbcType=BIGINT}
+    where order_id = #{orderId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.xiaoxinshop.entity.Order" >
     insert into tb_order (order_id, payment, payment_type, 
@@ -54,7 +116,7 @@
       receiver_mobile, receiver_zip_code, receiver, 
       expire, invoice_type, source_type, 
       seller_id)
-    values (#{orderId,jdbcType=BIGINT}, #{payment,jdbcType=DECIMAL}, #{paymentType,jdbcType=VARCHAR}, 
+    values (#{orderId,jdbcType=VARCHAR}, #{payment,jdbcType=DECIMAL}, #{paymentType,jdbcType=VARCHAR}, 
       #{postFee,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{paymentTime,jdbcType=TIMESTAMP}, #{consignTime,jdbcType=TIMESTAMP}, 
       #{endTime,jdbcType=TIMESTAMP}, #{closeTime,jdbcType=TIMESTAMP}, #{shippingName,jdbcType=VARCHAR}, 
@@ -145,7 +207,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="orderId != null" >
-        #{orderId,jdbcType=BIGINT},
+        #{orderId,jdbcType=VARCHAR},
       </if>
       <if test="payment != null" >
         #{payment,jdbcType=DECIMAL},
@@ -297,7 +359,7 @@
         seller_id = #{sellerId,jdbcType=VARCHAR},
       </if>
     </set>
-    where order_id = #{orderId,jdbcType=BIGINT}
+    where order_id = #{orderId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.xiaoxinshop.entity.Order" >
     update tb_order
@@ -325,6 +387,6 @@
       invoice_type = #{invoiceType,jdbcType=VARCHAR},
       source_type = #{sourceType,jdbcType=VARCHAR},
       seller_id = #{sellerId,jdbcType=VARCHAR}
-    where order_id = #{orderId,jdbcType=BIGINT}
+    where order_id = #{orderId,jdbcType=VARCHAR}
   </update>
 </mapper>

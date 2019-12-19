@@ -2,6 +2,7 @@ package com.xiaoxinshop.order.service.impl;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.xiaoxinshop.entity.*;
 import com.xiaoxinshop.mapper.OrderItemMapper;
@@ -28,7 +29,12 @@ public class OrderServiceImpl implements OrderService {
 
 	@Autowired
 	private OrderMapper orderMapper;
-	
+
+	@Override
+	public List<GOrder> findByUserName(String userId,String status) {
+		return orderMapper.findByUserName(userId,status);
+	}
+
 	/**
 	 * 查询全部
 	 */
@@ -72,7 +78,7 @@ public class OrderServiceImpl implements OrderService {
 			Order newOrder = new Order();
 			//设置订单id
         	Long orderId =idWorker.nextId();
-			newOrder.setOrderId(orderId);
+			newOrder.setOrderId(String.valueOf(orderId));
 			//用户名
 			newOrder.setUserId(order.getUserId());
 			//支付类型
@@ -156,7 +162,7 @@ public class OrderServiceImpl implements OrderService {
 	 * @return
 	 */
 	@Override
-	public Order findById(Long id){
+	public Order findById(String id){
 		return orderMapper.selectByPrimaryKey(id);
 	}
 
@@ -164,17 +170,19 @@ public class OrderServiceImpl implements OrderService {
 	 * 批量删除
 	 */
 	@Override
-	public void delete(Long[] ids) {
-		for(Long id:ids){
+	public void delete(String[] ids) {
+		for(String id:ids){
 			orderMapper.deleteByPrimaryKey(id);
 		}		
 	}
 	
 	
-		@Override
-	public PageResult findPage(Order order, int pageNum, int pageSize) {
-		PageHelper.startPage(pageNum, pageSize);
-		return  null;
+	@Override
+	public PageResult findPage(int  pageNum,int pageSize, String userId, String status) {
+
+		PageHelper.startPage(pageNum,pageSize);
+		Page<GOrder> page =(Page<GOrder> ) orderMapper.findByUserName(userId, status);
+		return  new PageResult(page.getTotal(),page.getResult());
 	}
 
 	@Override
@@ -183,14 +191,24 @@ public class OrderServiceImpl implements OrderService {
 		if (!"-1".equals(status)){
 			String[] strings = payLog.getOrderList().split(",");
 			for (String orderId : strings){
-				Order order = orderMapper.selectByPrimaryKey(Long.parseLong(orderId));
+				Order order = orderMapper.selectByPrimaryKey(orderId);
 				order.setStatus(status);
+				order.setPaymentTime(new Date());
 				orderMapper.updateByPrimaryKey(order);
 			}
 		}
         payLog.setPayTime(new Date());
 		payLog.setTradeState(status);
 		payLogMapper.updateByPrimaryKeySelective(payLog);
+	}
+
+	@Override
+	public void updateOrder(String status, String orderId) {
+		Order order = new Order();
+		order.setStatus(status);
+		order.setOrderId(orderId);
+		System.out.println(order);
+		orderMapper.updateByPrimaryKeySelective(order);
 	}
 
 }

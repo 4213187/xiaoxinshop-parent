@@ -18,6 +18,12 @@ public interface AddressMapper {
     int updateByPrimaryKey(Address record);
 
     /**
+     * 查询出默认地址
+     * @return
+     */
+     Address findByIsDefault(String userId);
+
+    /**
      * 根据用户查询地址
      * @param userId
      * @return

@@ -1,2 +1,5 @@
-com\xiaoxinshop\user\controller\UserController.class
+com\xiaoxinshop\user\controller\AddrController.class
+com\xiaoxinshop\user\controller\AddressController.class
 com\xiaoxinshop\user\service\UserDetailServiceImpl.class
+com\xiaoxinshop\user\controller\OrderController.class
+com\xiaoxinshop\user\controller\UserController.class

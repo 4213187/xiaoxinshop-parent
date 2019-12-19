@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-
+import org.springframework.transaction.annotation.Transactional;
 
 
 /**
@@ -18,6 +18,7 @@ import com.github.pagehelper.PageHelper;
  *
  */
 @Service
+@Transactional(rollbackFor = RuntimeException.class)
 public class AddressServiceImpl implements AddressService {
 
 	@Autowired
@@ -55,8 +56,23 @@ public class AddressServiceImpl implements AddressService {
 	@Override
 	public void update(Address address){
 		addressMapper.updateByPrimaryKey(address);
-	}	
-	
+	}
+
+	@Override
+	public void updateIsDefault(Long id,String userId) {
+//		修改之前的默认地址为普通地址
+		Address address = addressMapper.findByIsDefault(userId);
+		address.setIsDefault("0");
+		addressMapper.updateByPrimaryKeySelective(address);
+
+//		更新对应地址为默认地址
+		Address defaultAddress = new Address();
+		defaultAddress.setId(id);
+		defaultAddress.setIsDefault("1");
+		addressMapper.updateByPrimaryKeySelective(defaultAddress);
+
+	}
+
 	/**
 	 * 根据ID获取实体
 	 * @param id
@@ -65,6 +81,11 @@ public class AddressServiceImpl implements AddressService {
 	@Override
 	public Address findById(Long id){
 		return addressMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public Address findByIsDefault(String userId) {
+		return addressMapper.findByIsDefault(userId);
 	}
 
 	/**

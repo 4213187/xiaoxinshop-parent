@@ -88,7 +88,7 @@ public class OrderController {
 	 * @return
 	 */
 	@RequestMapping("/findById")
-	public Order findOne(Long id){
+	public Order findOne(String id){
 		return orderService.findById(id);
 	}
 	
@@ -98,7 +98,7 @@ public class OrderController {
 	 * @return
 	 */
 	@RequestMapping("/delete")
-	public ResultVo delete(Long [] ids){
+	public ResultVo delete(String [] ids){
 		try {
 			orderService.delete(ids);
 			return new ResultVo(true, "删除成功");
