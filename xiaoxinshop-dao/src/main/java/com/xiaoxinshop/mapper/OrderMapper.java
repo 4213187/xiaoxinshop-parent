@@ -17,6 +17,14 @@ public interface OrderMapper {
 
     List<GOrder> findByUserName(@Param(value = "userId") String userId, @Param(value = "status")String status);
 
+    /**
+     * 通过商家id 和状态查询订单
+     * @param sellerId
+     * @param status
+     * @return
+     */
+    List<Order>  findBySellerIdAndStatus(@Param(value = "sellerId") String sellerId ,@Param(value = "status") String status);
+
     int updateByPrimaryKeySelective(Order record);
 
     int updateByPrimaryKey(Order record);

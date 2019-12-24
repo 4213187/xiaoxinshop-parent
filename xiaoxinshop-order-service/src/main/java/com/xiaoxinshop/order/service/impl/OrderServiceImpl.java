@@ -153,7 +153,7 @@ public class OrderServiceImpl implements OrderService {
 	 */
 	@Override
 	public void update(Order order){
-		orderMapper.updateByPrimaryKey(order);
+		orderMapper.updateByPrimaryKeySelective(order);
 	}	
 	
 	/**
@@ -175,8 +175,16 @@ public class OrderServiceImpl implements OrderService {
 			orderMapper.deleteByPrimaryKey(id);
 		}		
 	}
-	
-	
+
+	@Override
+	public PageResult findBySellerIdAndStatus(int  pageNum,int pageSize,String sellerId, String status) {
+		PageHelper.startPage(pageNum,pageSize);
+		Page<Order> page =(Page<Order>) orderMapper.findBySellerIdAndStatus(sellerId, status);
+		return  new PageResult(page.getTotal(),page.getResult());
+
+	}
+
+
 	@Override
 	public PageResult findPage(int  pageNum,int pageSize, String userId, String status) {
 

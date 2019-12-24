@@ -15,7 +15,7 @@
     <script src="./plugins/angularjs/angular.min.js"></script>
     <script>
         var app = angular.module('xiaoxinshop', []);//定义模块
-        app.controller('itemController', function ($scope) {
+        app.controller('itemController', function ($scope,$http) {
 
             //数量操作
             $scope.addNum = function (x) {

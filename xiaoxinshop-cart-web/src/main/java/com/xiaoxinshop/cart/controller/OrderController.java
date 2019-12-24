@@ -108,17 +108,11 @@ public class OrderController {
 		}
 	}
 
-	/**
-	 * 分页
-	 * @param order
-	 * @param page
-	 * @param rows
-	 * @return
-	 */
-	@RequestMapping("/search")
-	public PageResult search(@RequestBody Order order, int page, int rows  ){
-		return orderService.findPage(order, page, rows);		
-	}
+
+//	@RequestMapping("/search")
+//	public PageResult search(@RequestBody Order order, int page, int rows  ){
+//		return orderService.findPage(order, page, rows);
+//	}
 
 
 	@RequestMapping("/updateOrderStatus")

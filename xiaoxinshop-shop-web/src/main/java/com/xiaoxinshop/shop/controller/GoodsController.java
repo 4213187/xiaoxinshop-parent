@@ -28,10 +28,10 @@ import java.util.List;
 @RequestMapping("/goods")
 public class GoodsController {
 
-	@Reference
+	@Reference(timeout = 36000)
 	private GoodsService goodsService;
 
-	@Reference
+	@Reference(timeout = 36000)
 	private ItemService itemService;
 	
 
@@ -51,12 +51,17 @@ public class GoodsController {
 	 * @param gGoods
 	 * @return
 	 */
+	@CrossOrigin(origins = "http://localhost:63343" ,allowCredentials = "true")
 	@RequestMapping(value = "/add",method = RequestMethod.POST)
-	public ResultVo add(@RequestBody GGoods gGoods){
+	public ResultVo add(@RequestBody GGoods gGoods,HttpServletRequest httpServletRequest){
 		try {
+			HttpSession session = httpServletRequest.getSession();
+			Seller seller =(Seller) session.getAttribute("seller");
+
 			System.out.println(gGoods.getGoods());
 			System.out.println(gGoods.getGoodsDesc());
 			System.out.println(gGoods.getItemList());
+			gGoods.getGoods().setSellerId(seller.getSellerId());
 			gGoods.getGoods().setIsMarketable("0");
 			goodsService.add(gGoods);
 			return new ResultVo(true, "增加成功");

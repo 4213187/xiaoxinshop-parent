@@ -59,6 +59,7 @@ public interface OrderService {
 	 */
 	public void delete(String[] ids);
 
+	PageResult findBySellerIdAndStatus(int  pageNum,int pageSize,String sellerId,String status);
 
 	public PageResult findPage(int  pageNum,int pageSize, String userId, String status);
 

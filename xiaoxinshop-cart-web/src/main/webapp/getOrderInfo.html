@@ -26,7 +26,7 @@
 
 
             $scope.submitOrder = function () {
-                $scope.order.receiverAreaName = provinceList[address.provinceId-1].province+cityList[address.cityId-1].city+areaList[address.townId-1].area+$scope.address.address;
+                $scope.order.receiverAreaName =  $scope.provinceList[$scope.address.provinceId-1].province+ $scope.cityList[$scope.address.cityId-1].city+ $scope.areaList[$scope.address.townId-1].area+$scope.address.address;
                 $scope.order.receiverMobile = $scope.address.mobile;
                 $scope.order.receiver = $scope.address.contact;
 

@@ -65,8 +65,12 @@
       and seller_id = #{sellerId}
     </if>
 
+    <if test="auditStatus ==null or auditStatus ==''">
+      and audit_status in ('0','1','2')
+    </if>
+
     <if test="auditStatus !=null and auditStatus !=''">
-      and audit_status in ('0','1')
+      and audit_status = #{auditStatus}
     </if>
 
     <if test="goodsName !=null and goodsName !=''">
@@ -77,7 +81,7 @@
       and  is_marketable  = #{isMarketable}
     </if>
     and  is_delete is null
-    order by
+    order by audit_status
   </select>
 
 
