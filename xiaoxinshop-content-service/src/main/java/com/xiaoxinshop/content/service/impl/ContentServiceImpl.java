@@ -98,6 +98,7 @@ public class ContentServiceImpl implements ContentService {
 
 	@Override
 	public List<Content> findByCategoryId(Long categoryId) {
+		System.out.println("findByCategoryId");
 		List<Content> list = (List<Content>)redisTemplate.boundHashOps("content").get(categoryId);
 		if (list ==null){
 			list = contentMapper.findByCategoryId(categoryId);

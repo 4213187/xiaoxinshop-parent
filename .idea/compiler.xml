@@ -19,8 +19,9 @@
         <module name="xiaoxinshop-cart-web" />
         <module name="xiaoxinshop-cart-service" />
         <module name="xiaoxinshop-cart-interface" />
-        <module name="xiaoxinshop-content-service" />
         <module name="xiaoxinshop-portal-web" />
+        <module name="xiaoxinshop-content-service" />
+        <module name="xiaoxinshop-dao" />
         <module name="xiaoxinshop-sellergoods-service" />
         <module name="xiaoxinshop-manager-web" />
         <module name="xiaoxinshop-page-interface" />
@@ -30,7 +31,6 @@
         <module name="xiaoxinshop-content-interface" />
         <module name="xiaoxinshop-user-service" />
         <module name="xiaoxinshop-common" />
-        <module name="xiaoxinshop-dao" />
         <module name="xiaoxinshop-page-web" />
       </profile>
     </annotationProcessing>
