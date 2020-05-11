@@ -10,6 +10,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author lenovo
+ */
 public class UserDetailServiceImpl implements UserDetailsService {
 
 	@Override

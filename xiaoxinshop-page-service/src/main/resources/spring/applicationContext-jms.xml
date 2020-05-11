@@ -21,7 +21,8 @@
     <!--这个是队列目的地，订阅  文本信息-->
 	<bean id="topicPageDestination" class="org.apache.activemq.command.ActiveMQTopic">
 	    <constructor-arg value="xiaoxinshop_topic_page"/>
-	</bean>    
+	</bean>
+
 	
 	<!-- 我的监听类 -->
 	<bean id="pageListener" class="com.xiaoxinshop.page.service.impl.PageListener"></bean>

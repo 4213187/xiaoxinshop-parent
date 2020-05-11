@@ -1,5 +1,7 @@
+com\xiaoxinshop\message\service\impl\NoticeSmsUtil.class
 com\xiaoxinshop\message\service\impl\MessageServiceImpl.class
 com\xiaoxinshop\message\service\impl\SmsListener.class
 com\xiaoxinshop\message\service\impl\SmsUtil.class
+com\xiaoxinshop\message\service\impl\NoticeSmsListener.class
 com\xiaoxinshop\message\service\impl\UpdateSmsListener.class
 com\xiaoxinshop\message\service\impl\UpdateSmsUtil.class

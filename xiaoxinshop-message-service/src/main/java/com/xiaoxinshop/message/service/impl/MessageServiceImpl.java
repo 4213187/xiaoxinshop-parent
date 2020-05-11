@@ -19,4 +19,10 @@ public class MessageServiceImpl implements MessageService {
     public boolean sendUpdateSms(String phone, String code) {
         return UpdateSmsUtil.sendSms(phone, code);
     }
+
+    @Override
+    public boolean sendNoticeSms(String phone, String code) {
+        return NoticeSmsUtil.sendSms(phone, code);
+    }
+
 }

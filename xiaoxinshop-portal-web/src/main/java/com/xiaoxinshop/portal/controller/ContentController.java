@@ -118,7 +118,7 @@ public class ContentController {
 	}
 
 
-	@RequestMapping("/name")
+	@RequestMapping(value = "/name",method = RequestMethod.GET)
 	public String showName() {
 
 		//得到登陆人账号

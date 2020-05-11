@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -72,7 +73,7 @@ public class CartController {
     }
 
 
-    @RequestMapping("/addGoodsToCartList")
+    @RequestMapping(value = "/addGoodsToCartList",method = RequestMethod.GET)
     public ResultVo addGoodsToCartList(Long itemId,Integer num){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
 

@@ -11,26 +11,26 @@
         <module name="xiaoxinshop-search-interface" />
         <module name="xiaoxinshop-sellergoods-interface" />
         <module name="xiaoxinshop-search-service" />
-        <module name="xiaoxinshop-user-interface" />
+        <module name="xiaoxinshop-page-service" />
         <module name="xiaoxinshop-order-interface" />
         <module name="xiaoxinshop-message-service" />
+        <module name="xiaoxinshop-content-interface" />
         <module name="xiaoxinshop-message-interface" />
-        <module name="xiaoxinshop-shop-web" />
-        <module name="xiaoxinshop-cart-web" />
         <module name="xiaoxinshop-cart-service" />
         <module name="xiaoxinshop-cart-interface" />
         <module name="xiaoxinshop-portal-web" />
         <module name="xiaoxinshop-content-service" />
-        <module name="xiaoxinshop-dao" />
+        <module name="xiaoxinshop-shop-web" />
         <module name="xiaoxinshop-sellergoods-service" />
-        <module name="xiaoxinshop-manager-web" />
         <module name="xiaoxinshop-page-interface" />
+        <module name="xiaoxinshop-cart-web" />
         <module name="xiaoxinshop-user-web" />
-        <module name="xiaoxinshop-page-service" />
+        <module name="xiaoxinshop-dao" />
         <module name="xiaoxinshop-order-service" />
-        <module name="xiaoxinshop-content-interface" />
+        <module name="xiaoxinshop-manager-web" />
         <module name="xiaoxinshop-user-service" />
         <module name="xiaoxinshop-common" />
+        <module name="xiaoxinshop-user-interface" />
         <module name="xiaoxinshop-page-web" />
       </profile>
     </annotationProcessing>

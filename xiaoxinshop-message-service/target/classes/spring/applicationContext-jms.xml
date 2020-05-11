@@ -34,6 +34,8 @@
 
 
 
+
+
 	<!--这个是队列目的地，点对点-->
 	<bean id="queueUpdateMessageDestination" class="org.apache.activemq.command.ActiveMQQueue">
 		<constructor-arg value="xiaoxinshop_queue_UpdateMessage"/>
@@ -47,6 +49,22 @@
 		<property name="destination" ref="queueUpdateMessageDestination" />
 		<property name="messageListener" ref="smsUpdateListener" />
 	</bean>
+
+
+	<!--这个是队列目的地，点对点-->
+	<bean id="queueNoticeMessageDestination" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="xiaoxinshop_queue_NoticeMessage"/>
+	</bean>
+
+	<!-- 我的监听类 -->
+	<bean id="smsNoticeListener" class="com.xiaoxinshop.message.service.impl.NoticeSmsListener"></bean>
+	<!-- 消息监听容器 -->
+	<bean class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destination" ref="queueNoticeMessageDestination" />
+		<property name="messageListener" ref="smsNoticeListener" />
+	</bean>
+
 
 
 
